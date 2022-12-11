@@ -55,7 +55,7 @@ module.exports = {
         orderStatus.forEach((e)=>{
             statusName.push(e._id)
             statusCount.push(e.count)
-        })
+        })  
         const weekRevenue=await Order.aggregate([
             {
                 

@@ -66,4 +66,8 @@ router.post('/price-filter',productController.filterByPrice)
 router.get('/orderSuccess',auth.isUser,orderController.orderSuccess)
 
 
+// router.all('/',(req,res)=>{
+//     res.render('user/404')
+// })
+
 module.exports = router;

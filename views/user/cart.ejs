@@ -14,6 +14,7 @@
             <!-- ec-breadcrumb-list start -->
             <ul class="ec-breadcrumb-list">
               <li class="ec-breadcrumb-item"><a href="/">Home</a></li>
+              &nbsp;<i class="fa-solid fa-angle-right"></i>&nbsp;
               <li class="ec-breadcrumb-item active">Cart</li>
             </ul>
             <!-- ec-breadcrumb-list end -->
@@ -138,13 +139,13 @@
 
                     <span class="text-right"><%= delcharge=0 %></span>
                   </div>
-                  <div>
+                  <!-- <div>
                     <span class="text-left">Coupan Discount</span>
                     <span class="text-right"
                       ><a class="ec-cart-coupan">Apply Coupan</a></span
                     >
-                  </div>
-                  <div class="ec-cart-coupan-content">
+                  </div> -->
+                  <!-- <div class="ec-cart-coupan-content">
                     <form
                       class="ec-cart-coupan-form"
                       name="ec-cart-coupan-form"
@@ -167,7 +168,7 @@
                       >
                         Apply
                       </button>
-                    </form>
+                    </form> -->
                   </div>
                   <div class="ec-cart-summary-total">
                     <span class="text-left">Total Amount</span>
@@ -193,13 +194,13 @@
 <script>
   function removeFromCart(prodId) {
     Swal.fire({
-      title: "Are you sure? to remove this item ",
-      text: "You won't be able to revert this!",
+      title: "Are you sure? to move this item to wishlist",
+      text: "You can add this Product to cart from wishlist!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, remove it!",
+      confirmButtonText: "Yes,move it!",
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
@@ -208,12 +209,13 @@
           success: (response) => {
             if (response.status) {
               $("#prodrow" + prodId).remove();
+              
             }
           },
         });
         Swal.fire(
-          "Removed!",
-          "Your item has been removed from your cart",
+          "item moved!",
+          "Your item has been moved to your wishlist",
           "success"
         );
       }

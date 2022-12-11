@@ -14,6 +14,7 @@
                         <!-- ec-breadcrumb-list start -->
                         <ul class="ec-breadcrumb-list">
                             <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
+                            &nbsp;<i class="fa-solid fa-angle-right"></i>&nbsp;
                             <li class="ec-breadcrumb-item active">Profile</li>
                         </ul>
                         <!-- ec-breadcrumb-list end -->
@@ -68,12 +69,15 @@
                                         <div class="ec-vendor-block-detail">
                                             <img class="v-img" src="assets/user.png" alt="vendor image">
                                             <h5 class="name"><%= user.name %> </h5>
-                                            <p>( Business Man )</p>
+                                            
                                         </div>
                                         <p>Hello <span><%= user.name %> </span></p>
                                         <p>From your account you can easily view and track orders. You can manage and change your account information like address, contact information and history of orders.</p>
                                     </div>
                                     <h5>Account Information</h5>
+                                    <div class="p-2 pb-3">
+                                        <a href="/edit-userInfo" class="btn btn-lg btn-primary">Edit Information</a>
+                                    </div>
 
                                     <div class="row">
                                         <div class="col-md-6 col-sm-12">

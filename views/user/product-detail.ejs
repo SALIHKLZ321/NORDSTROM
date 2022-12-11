@@ -13,7 +13,7 @@
                                 <!-- ec-breadcrumb-list start -->
                                 <ul class="ec-breadcrumb-list">
                                     <li class="ec-breadcrumb-item"><a href="/">Home</a></li>
-                                    &nbsp; <i class="fa-sharp fa-solid fa-greater-than"></i> &nbsp;
+                                    &nbsp;<i class="fa-solid fa-angle-right"></i>&nbsp;
                                     <li class="active"><%= product.title %> </li>
                                 </ul>
                                 <!-- ec-breadcrumb-list end -->
@@ -93,12 +93,16 @@
                                         <div class="single-pro-content">
                                             <h5 class="ec-single-title"><%= product.title %> </h5>
                                             <div class="ec-single-rating-wrap">
-                                                <div class="ec-single-rating">
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star-o"></i>
+                                                <div class="ec-pro-rating">
+                                                    <i class="fa-solid fa-star"
+                                                        style="color: rgb(238, 213, 69);"></i>
+                                                    <i class="fa-solid fa-star"
+                                                        style="color: rgb(238, 213, 69);"></i>
+                                                    <i class="fa-solid fa-star"
+                                                        style="color: rgb(238, 213, 69);"></i>
+                                                    <i class="fa-solid fa-star"
+                                                        style="color: rgb(238, 213, 69);"></i>
+                                                    <i class="fa-regular fa-star"></i>
                                                 </div>
                                                 <span class="ec-read-review"><a href="#ec-spt-nav-review">Be the first
                                                         to review this product</a></span>
@@ -231,6 +235,13 @@
                     url: '/add-to-cart?id=' + prodId,
                     method: 'get',
                     success: ((response) => {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: ' Item added to Cart',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
                         console.log(response);
                         
                     })
@@ -241,6 +252,37 @@
                     url: '/add-to-wishlist?id=' + prodId,
                     method: 'get',
                     success: ((response) => {
+                        if(!response.inc){
+                            Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: ' Item Removed from Wishlist',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                            let count = $('#wishlist').html
+                            count = parseInt(count) -1
+                            $('#wishlist').html(count)
+                            count = $('#wishlist1').html
+                            count = parseInt(count) - 1
+                            $('#wishlist1').html(count)
+
+                        }else{
+                            Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: ' Item added to Wishlist',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                            let count = $('#wishlist').html
+                            count = parseInt(count) +1
+                            $('#wishlist').html(count)
+                            count = $('#wishlist1').html
+                            count = parseInt(count) + 1
+                            $('#wishlist1').html(count)
+
+                        }
                         
                     })
                 })

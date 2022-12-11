@@ -58,10 +58,10 @@ app.use('/images',express.static(path.join(__dirname,'productimg')))
 // app.use('/assets',express.static(__dirname+'/public/assets'))
 app.use(session({ secret: 'criptSea', saveUninitialized: true, resave: true }));
 
-
-app.use((req,res,next)=>{
+app.all('*',(req,res)=>{
   res.status(404).render('user/404')
 })
+
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, console.log("Server has started at port " + PORT))

@@ -1,0 +1,65 @@
+<%- include('partials/_head.ejs') %> <%- include('partials/leftsidebar.ejs') %>
+<%- include('partials/_header.ejs') %>
+<div class="ec-content-wrapper">
+  <div class="content">
+    <div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
+      <h1>Main Category</h1>
+      <p class="breadcrumbs">
+        <span><a href="/admin">Home</a></span>
+        <span><i class="mdi mdi-chevron-right"></i></span>Category
+      </p>
+    </div>
+    <div class="row">
+      <div class="col-xl-8 col-lg-12">
+        <div class="ec-cat-list card card-default">
+          <div class="card-body">
+            <div class="table-responsive">
+                <div>
+                    <a href="/admin/add-banner" class="btn btn-primary"> Add Banner</a>
+                  </div>
+              <table id="responsive-data-table" class="table">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <!-- <th>Product</th> -->
+                    <!-- <th>Status</th> -->
+                    <!-- <th>Trending</th> -->
+                    <th>Description</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                    <% banner.forEach(e => { %>
+                        <% let src=e.image.slice(6) %> 
+                     
+                    
+                  <tr>
+                    <td>
+                      <img
+                        class="cat-thumb"
+                        src="<%= src %> "
+                        alt="Product Image"
+                      />
+                    </td>
+                    <td><%= e.title %> </td>
+                    
+                    <td><%= e.description %></td>
+                    <td><a class="btn btn-success" href="/admin/editbanner?id=<%= e._id %>">Edit</a></td>
+                      <td><a class="btn btn-danger" href="/admin/deletebanner?id=<%= e._id %>">Delete</a></td>
+                    
+                    
+                  </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Content -->
+</div>
+
+<%- include('partials/foot.ejs') %>

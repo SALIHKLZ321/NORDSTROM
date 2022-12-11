@@ -1,0 +1,101 @@
+<%- include('partials/_head.ejs') %>
+<%- include('partials/leftsidebar.ejs') %>
+<%- include('partials/_header.ejs') %>
+
+<div class="ec-content-wrapper">
+    <div class="content">
+        <div class="breadcrumb-wrapper breadcrumb-wrapper-2">
+            <h1>New Orders</h1>
+            <p class="breadcrumbs"><span><a href="index.html">Home</a></span>
+                <span><i class="mdi mdi-chevron-right"></i></span>Orders
+            </p>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-default">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="responsive-data-table" class="table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Customer</th>
+                                        <th> No of Items</th>
+                                        
+                                        <th>Payment</th>
+                                        <th>Status</th>
+                                        <th>Ordered Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% orders.forEach(e => { %>
+                                     
+                                    
+                                    <tr>
+                                        <td><%= e._id %> </td>
+                                        <td><strong><%= e.userdetails[0].name %> </strong><br>
+                                            <%= e.userdetails[0].email %> 
+                                        </td>
+                                        <td><%= e.products.length %> </td>
+                                        
+                                        <td><strong><%= e.paymentMethod=='Cash On Delivery'?'Cash On Delivery':'Paid' %></strong><br>
+                                            <%= e.total %>  
+                                        </td>
+                                        
+                                        <td><span class="mr-2" id="status<%= e._id %>"><%= e.status %></span>
+                                        </td>
+                                        <% let date=e.purchaseDate.toString() %> 
+                                        <td><%= date.slice(0,16) %> </td>
+                                        <td>
+                                            <div class="mb-1">
+                                                <button type="button"
+                                                    class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false" data-display="static" style="height: 40px;">
+                                                    Action
+                                                </button>
+
+                                                <div class="dropdown-menu">
+                                                    <li><a class="dropdown-item" onclick="changeStatus('<%= e._id %>','Placed')"  >Placed</a></li>
+                                              <li><a class="dropdown-item" onclick="changeStatus('<%= e._id %>','Shipped')" >Shipped</a></li>
+                                              <li><a class="dropdown-item" onclick="changeStatus('<%= e._id %>','Out for delivery')" >Out for delivery</a></li>
+                                              <li><a class="dropdown-item" onclick="changeStatus('<%= e._id %>','Canceled')" >Canceled</a></li>
+                                              <li><a class="dropdown-item" onclick="changeStatus('<%= e._id %>','Designing')" >Designing</a></li>
+                                              <li><a class="dropdown-item" onclick="changeStatus('<%= e._id %>','Delivered')" >Delivered</a></li>
+                                              <li><a class="dropdown-item" onclick="changeStatus('<%= e._id %>','Returned')" >Returned</a></li>
+
+                                                   
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Content -->
+</div>
+<script>
+    function changeStatus(orderId,status){
+        console.log(orderId,status);
+        $.ajax({
+            url:'/admin/change-order-status',
+            method:'post',
+            data:{
+                orderId,
+                status
+            },
+            success:((response)=>{
+                $('#status'+orderId).html(status)
+            })
+        })
+    }
+</script>
+
+<%- include('partials/foot.ejs') %>

@@ -1,0 +1,73 @@
+<%- include('partials/__head.ejs') %> 
+<%- include('partials/__header.ejs') %>
+<% let message=null %> 
+
+<section class="ec-page-content section-space-p">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="section-title">
+                    <h2 class="ec-bg-title">Edit Address</h2>
+                    <h2 class="ec-title">Edit Address</h2>
+                    
+                </div>
+            </div>
+            <% if (message) { %>
+                <div class="alert alert-secondary" role="alert">
+                    <%= message %>
+                  </div>
+            <% } %>
+            <div class="ec-register-wrapper">
+                <div class="ec-register-container" style="padding:4rem;">
+                    
+                    <div class="ec-register-form">
+                        <form action="/edit-address?id=<%= address._id %>" method="post">
+                            <span class="ec-register-wrap">
+                                
+                                <input type="text" name="name" value="<%= address.name %>"  placeholder="Full Name (required)" required />
+                            </span>
+                            
+                            <span class="ec-register-wrap ec-register-half">
+                                
+                                <input type="text" name="pin" value="<%= address.pin %>"  placeholder="Pin Code(required)" maxlength="6" required />
+                            </span>
+                            <span class="ec-register-wrap ec-register-half">
+                                
+                                <input type="text" name="phone" value="<%= address.phone %>"  placeholder="Phone Number(required)" maxlength="10"
+                                    required />
+                            </span>
+                            <span class="ec-register-wrap">
+                                
+                                <input type="text" name="house"  value="<%= address.house %>"  placeholder="House No,Building Name(required)" required />
+                            </span>
+                            <span class="ec-register-wrap">
+                                <input type="text" name="street" value="<%= address.street %>" placeholder="Road name,Area,Colony(required)" required/>
+                            </span>
+                            <span class="ec-register-wrap ec-register-half">
+                                <input type="text" name="city" value="<%= address.city %>" placeholder="City(required)" required />
+                            </span>
+                            <span class="ec-register-wrap ec-register-half">
+                                <input type="text" name="state" value="<%= address.state %>"  placeholder="State(required)" required/>
+                                
+                            </span>
+                            
+                            <!-- <span class="ec-register-wrap ec-recaptcha">
+                                <span class="g-recaptcha" data-sitekey="6LfKURIUAAAAAO50vlwWZkyK_G2ywqE52NU7YO0S"
+                                    data-callback="verifyRecaptchaCallback"
+                                    data-expired-callback="expiredRecaptchaCallback"></span>
+                                <input class="form-control d-none" data-recaptcha="true" required
+                                    data-error="Please complete the Captcha">
+                                <span class="help-block with-errors"></span>
+                            </span> -->
+                            <span class="ec-register-wrap ec-register-btn">
+                                <button class="btn btn-primary" type="submit">Save</button>
+                            </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/__foot.ejs') %>

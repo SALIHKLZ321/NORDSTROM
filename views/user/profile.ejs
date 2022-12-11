@@ -1,0 +1,124 @@
+<%- include('partials/__head.ejs') %>
+<%- include('partials/__header.ejs') %>
+
+<!-- Ec breadcrumb start -->
+<div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row ec_breadcrumb_inner">
+                    <div class="col-md-6 col-sm-12">
+                        <h2 class="ec-breadcrumb-title"><%= user.name %> </h2>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <!-- ec-breadcrumb-list start -->
+                        <ul class="ec-breadcrumb-list">
+                            <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="ec-breadcrumb-item active">Profile</li>
+                        </ul>
+                        <!-- ec-breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Ec breadcrumb end -->
+
+<!-- User profile section -->
+<section class="ec-page-content ec-vendor-uploads ec-user-account section-space-p">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar Area Start -->
+            <div class="ec-shop-leftside ec-vendor-sidebar col-lg-3 col-md-12">
+                <div class="ec-sidebar-wrap">
+                    <!-- Sidebar Category Block -->
+                    <div class="ec-sidebar-block">
+                        <div class="ec-vendor-block">
+                            <!-- <div class="ec-vendor-block-bg"></div>
+                            <div class="ec-vendor-block-detail">
+                                <img class="v-img" src="assets/images/user/1.jpg" alt="vendor image">
+                                <h5>Mariana Johns</h5>
+                            </div> -->
+                            <div class="ec-vendor-block-items">
+                                <ul>
+                                    <li><a href="/profile">User Profile</a></li>
+                                    <!-- <li><a href="user-history.html">History</a></li> -->
+                                    <li><a href="/wishlist">Wishlist</a></li>
+                                    <li><a href="/cart">Cart</a></li>
+                                    <li><a href="/coupons">Coupons</a></li>
+                                    <li><a href="/my-orders">My Orders</a></li>
+                                    <!-- <li><a href="user-invoice.html">Invoice</a></li> -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ec-shop-rightside col-lg-9 col-md-12">
+                <div class="ec-vendor-dashboard-card ec-vendor-setting-card">
+                    <div class="ec-vendor-card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="ec-vendor-block-profile">
+                                    <div class="ec-vendor-block-img space-bottom-30">
+                                        <div class="ec-vendor-block-bg">
+                                            <a href="/add-address" class="btn btn-lg btn-primary">Add New Address</a>
+                                        </div>
+                                        <div class="ec-vendor-block-detail">
+                                            <img class="v-img" src="assets/user.png" alt="vendor image">
+                                            <h5 class="name"><%= user.name %> </h5>
+                                            <p>( Business Man )</p>
+                                        </div>
+                                        <p>Hello <span><%= user.name %> </span></p>
+                                        <p>From your account you can easily view and track orders. You can manage and change your account information like address, contact information and history of orders.</p>
+                                    </div>
+                                    <h5>Account Information</h5>
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="ec-vendor-detail-block ec-vendor-block-email space-bottom-30">
+                                                <h6>E-mail address</h6>
+                                                <ul>
+                                                    <li><strong>Email: </strong><%= user.email %> </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="ec-vendor-detail-block ec-vendor-block-contact space-bottom-30">
+                                                <h6>Contact nubmer</h6>
+                                                <ul>
+                                                    <li><strong>Phone Nubmer: </strong><%= user.phone %></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                        <% user.address.forEach(e => { %>
+                                         
+                                        
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="ec-vendor-detail-block ec-vendor-block-address mar-b-30">
+                                                <h6>Address<a href="/edit-address?id=<%= e._id %>"><i class="fa-solid fa-pen"></i></a><a href="/delete-address?id=<%= e._id %>"><i class="fa-sharp fa-solid fa-trash"></i></a></h6>
+                                                    
+                                                <ul>
+                                                    <li><strong><%= e.name %> </strong></li>
+                                                    <li><%= e.phone %> </li>
+                                                    <li><%= e.house %> </li>
+                                                    <li><%= e.street %> , <%= e.city %> , <%= e.state %> </li>
+                                                </ul>
+                                            </div>
+                                        </div> 
+                                        <% }) %>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<%- include('partials/__foot.ejs') %>

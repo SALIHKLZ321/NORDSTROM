@@ -1,0 +1,49 @@
+<%- include('partials/_head.ejs') %>
+    <%- include('partials/leftsidebar.ejs') %>
+        <%- include('partials/_header.ejs') %>
+
+        <div class="card-body">
+
+            <table class="table card-table table-responsive table-responsive-large"
+                style="width:90%">
+                <div>
+                    <a href="/admin/add-coupon" class="btn btn-primary"> Add Coupon</a>
+                  </div>
+                <thead>
+                    <tr>
+                        <th>Coupon name</th>
+                        <th>Code</th>
+                        <th class="d-lg-table-cell">Percentage</th>
+                        <th class="d-lg-table-cell">Minimum Limit</th>
+                        <th class="d-lg-table-cell">Maximum Limit</th>
+                        <th>Expiry</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <% coupons.forEach(e => { %>
+                     
+                    
+                    <tr>
+                        <td><%= e.title %></td>
+                        <td>
+                            <a class="text-dark" href=""><strong><%= e.code %> </strong></a>
+                        </td>
+                        <td class="d-lg-table-cell"><%= e.percentage %> % </td>
+                        <% let date=e.expiry.toString() %> 
+                        <td class="d-lg-table-cell">₹ <%= e.minimum %></td>
+                        <td><strong></strong>₹ <%= e.maximum %></td>
+                        <td>
+                            <span class="badge badge-success"><%= date.slice(0,21) %> </span>
+                        </td>
+                        
+                    </tr>
+                    <% }) %>
+                   
+                </tbody>
+            </table>
+        </div> 
+       
+       
+<%- include('partials/foot.ejs') %>

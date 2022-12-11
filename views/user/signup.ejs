@@ -1,0 +1,111 @@
+<%- include('partials/__head.ejs') %>
+<% let message = locals.message || null %>
+
+<link rel="stylesheet" href="assets/css/plugins/nouislider.css" />
+
+<%- include('partials/__header.ejs') %>
+
+    <!-- Ec breadcrumb start -->
+    <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row ec_breadcrumb_inner">
+                        <div class="col-md-6 col-sm-12">
+                            <h2 class="ec-breadcrumb-title">Register</h2>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <!-- ec-breadcrumb-list start -->
+                            <ul class="ec-breadcrumb-list">
+                                <li class="ec-breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="ec-breadcrumb-item active">Register</li>
+                            </ul>
+                            <!-- ec-breadcrumb-list end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Ec breadcrumb end -->
+
+    <!-- Start Register -->
+    <section class="ec-page-content section-space-p">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="section-title">
+                        <h2 class="ec-bg-title">Register</h2>
+                        <h2 class="ec-title">Register</h2>
+                        <p class="sub-title mb-3">Best place to buy and sell digital products</p>
+                    </div>
+                </div>
+                <% if (message) { %>
+                    <div class="alert alert-secondary" role="alert">
+                        <%= message %>
+                      </div>
+                <% } %>
+                <div class="ec-register-wrapper">
+                    <div class="ec-register-container">
+                        <div class="ec-register-form">
+                            <form action="/signup" method="post">
+                                <span class="ec-register-wrap ec-register-half">
+                                    <label>First Name*</label>
+                                    <input type="text" name="fname"  placeholder="Enter your first name" required />
+                                </span>
+                                <span class="ec-register-wrap ec-register-half">
+                                    <label>Last Name*</label>
+                                    <input type="text" name="lname"  placeholder="Enter your last name" required />
+                                </span>
+                                <span class="ec-register-wrap ec-register-half">
+                                    <label>Email*</label>
+                                    <input type="email" name="email" placeholder="Enter your email add..." required />
+                                </span>
+                                <span class="ec-register-wrap ec-register-half">
+                                    <label>Phone Number*</label>
+                                    <input type="text" name="phone" placeholder="Enter your phone number"
+                                        required />
+                                </span>
+                                
+                                <span class="ec-register-wrap ec-register-half">
+                                    <label>City*</label>
+                                    <input type="text" name="city" placeholder="Enter your City" required />
+                                </span>
+                                <span class="ec-register-wrap ec-register-half">
+                                    <label>Pin Code</label>
+                                    <input type="text" name="pin" placeholder="Post Code" />
+                                </span>
+                                <span class="ec-register-wrap ec-register-half">
+                                    <label>Password *</label>
+                                    <input type="password" name="password" placeholder="Enter your password" required />
+                                </span>
+                                <span class="ec-register-wrap ec-register-half">
+                                    <label>Re Password</label>
+                                    <input type="password" name="confirm" placeholder="Re-Enter your password" required />
+                                </span>
+                                <!-- <span class="ec-register-wrap ec-recaptcha">
+                                    <span class="g-recaptcha" data-sitekey="6LfKURIUAAAAAO50vlwWZkyK_G2ywqE52NU7YO0S"
+                                        data-callback="verifyRecaptchaCallback"
+                                        data-expired-callback="expiredRecaptchaCallback"></span>
+                                    <input class="form-control d-none" data-recaptcha="true" required
+                                        data-error="Please complete the Captcha">
+                                    <span class="help-block with-errors"></span>
+                                </span> -->
+                                <span class="ec-register-wrap ec-register-btn">
+                                    <button class="btn btn-primary" type="submit">Register</button>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Register -->
+
+
+
+
+
+
+<%- include('partials/__foot.ejs') %>

@@ -1,0 +1,172 @@
+<%- include('partials/__head.ejs') %>
+<%- include('partials/__header.ejs') %>
+ <!-- Ec breadcrumb start -->
+ <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row ec_breadcrumb_inner">
+                    <div class="col-md-6 col-sm-12">
+                        <h2 class="ec-breadcrumb-title">Wishlist</h2>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <!-- ec-breadcrumb-list start -->
+                        <ul class="ec-breadcrumb-list">
+                            <li class="ec-breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="ec-breadcrumb-item active">Wishlist</li>
+                        </ul>
+                        <!-- ec-breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Ec breadcrumb end -->
+
+<!-- Ec Wishlist page -->
+<section class="ec-page-content section-space-p">
+    <div class="container">
+        <div class="row">
+            <!-- Compare Content Start -->
+            <div class="ec-wish-rightside col-lg-12 col-md-12">
+                <!-- Compare content Start -->
+                <div class="ec-compare-content">
+                    <div class="ec-compare-inner">
+                        <div class="row margin-minus-b-30">
+                            <% if (products) { %>
+                             
+                            
+                            <% products.forEach(e => { %> 
+                            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                                
+                                 
+                                
+                                <div class="ec-product-inner">
+                                    <div class="ec-pro-image-outer">
+                                        <div class="ec-pro-image">
+                                            <a href="product-left-sidebar.html" class="image">
+                                                <img class="main-image"
+                                                    src="/productimages/<%= e.thumbnail %>" alt="Product" />
+                                                <img class="hover-image"
+                                                    src="/productimages/<%= e.images[0] %>" alt="Product" />
+                                            </a>
+                                            <span class="ec-com-remove ec-remove-wish"><a onclick="remove('<%= e._id %>')">×</a></span>
+                                            <span class="percentage">20%</span>
+                                            <a href="#" class="quickview" data-link-action="quickview"
+                                                title="Quick view" data-bs-toggle="modal"
+                                                data-bs-target="#ec_quickview_modal"><img
+                                                    src="assets/images/icons/quickview.svg" class="svg_img pro_svg"
+                                                    alt="" /></a>
+                                            <div class="ec-pro-actions">
+                                                <a href="compare.html" class="ec-btn-group compare"
+                                                    title="Compare"><img src="assets/images/icons/compare.svg"
+                                                        class="svg_img pro_svg" alt="" /></a>
+                                                <button onclick="addToCart('<%= e._id %>')" title="Add To Cart" class=" add-to-cart"><img
+                                                        src="assets/images/icons/cart.svg" class="svg_img pro_svg"
+                                                        alt="" /> Add To Cart</button>
+                                                <a class="ec-btn-group wishlist" title="Wishlist"><img
+                                                        src="assets/images/icons/wishlist.svg"
+                                                        class="svg_img pro_svg" alt="" /></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ec-pro-content">
+                                        <h5 class="ec-pro-title"><a href="/product-detail?id=<%= e._id %>"><%= e.title %></a></h5>
+                                        <div class="ec-pro-rating">
+                                            <i class="fa-solid fa-star" style="color: rgb(238, 213, 69);"></i>
+                                            <i class="fa-solid fa-star" style="color: rgb(238, 213, 69);"></i>
+                                            <i class="fa-solid fa-star" style="color: rgb(238, 213, 69);"></i>
+                                            <i class="fa-solid fa-star" style="color: rgb(238, 213, 69);"></i>
+                                            <i class="fa-regular fa-star"></i>
+                                        </div>
+                                        <div class="ec-pro-list-desc"><%= e.discription %></div>
+                                        <span class="ec-price">
+                                            <span class="old-price"><%= Math.round(e.price*1.2) %></span>
+                                            <span class="new-price"><%= e.price %></span>
+                                        </span>
+                                        <div class="ec-pro-option">
+                                            
+                                            <div class="ec-pro-size">
+                                                <% if (e.size) { %>
+                                                 
+                                                
+                                                <span class="ec-pro-opt-label">Size</span>
+                                                <ul class="ec-opt-size">
+                                                   <% e.size.forEach(e => { %>
+                                                    
+                                                    <li class="active"><a href="#" class="ec-opt-sz"
+                                                            
+                                                            data-tooltip="<%= e %>"><%= e %> </a></li>
+                                                            <% }) %>
+                                                </ul>
+                                                <% } %>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                            <% }) %>
+                            <% }  else  { %>
+                                <section class="ec-page-content section-space-p">
+                                    <div class="container">
+                                        <div class="row">
+                                            <!-- Compare Content Start -->
+                                            <div class="ec-wish-rightside col-lg-12 col-md-12"><p class="emp-wishlist-msg">Your wishlist is empty!</p></div>
+                                            <!-- Compare Content end -->
+                                        </div>
+                                    </div>
+                                    </section>
+                                <% } %>
+                        </div>
+                    </div>
+                </div>
+                <!--compare content End -->
+            </div>
+            <!-- Compare Content end -->
+        </div>
+    </div>
+</section>
+<script>
+    function addToCart(prodId) {
+        $.ajax({
+            url: '/add-to-cart?id=' + prodId,
+            method: 'get',
+            success: ((response) => {
+                Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: ' Item added to Cart',
+                showConfirmButton: false,
+                timer: 1500
+                        })
+                let count = $('#cartCount').html
+                count = parseInt(count) + 1
+                $('#cartCount').html(count)
+            })
+        })
+        remove(prodId);
+    }
+    function remove(prodId){
+        $.ajax({
+            url: '/add-to-wishlist?id=' + prodId,
+            method: 'get',
+            success: ((response) => {
+                Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: ' Item Removed from Wishlist',
+                showConfirmButton: false,
+                timer: 1500
+                        })
+                console.log(response);
+            })
+        })
+
+    }
+</script>
+
+
+<%- include('partials/__foot.ejs') %>

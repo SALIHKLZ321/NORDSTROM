@@ -1,0 +1,124 @@
+<%- include('partials/__head.ejs') %> 
+<%- include('partials/__header.ejs') %>
+<style>
+.coupon-card{
+    background: linear-gradient(135deg, #7158fe, #9d4de6);
+    color: #fff;
+    text-align: center;
+    padding: 40px 80px;
+    border-radius: 15px;
+    box-shadow: 0 10px 10px 0 rgba(0,0,0,0.15);
+    position: relative;
+
+}
+.logo{
+    width: 80px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+
+}
+.coupon-card h3{
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 40px;
+
+}
+.coupon-card p{
+    font-size: 15px;
+
+}
+.coupon-row{
+    display: flex;
+    align-items: center;
+    margin: 25px auto;
+    width: fit-content;
+
+}
+#cpnCode{
+    border: 1px dashed #fff;
+    padding: 10px 20px;
+    border-right: 0;
+
+}
+#cpnBtn{
+    border: 1px solid #fff;
+    background: #fff;
+    padding: 10px 20px;
+    color: #7158fe;
+    cursor: pointer;
+}
+.circle1, .circle2{
+    background: #f0fff3;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+}
+.circle1{
+    left: -25px;
+}
+.circle2{
+    right: -25px;
+}
+
+</style>
+
+
+<!-- Ec breadcrumb start -->
+<div class="sticky-header-next-sec ec-breadcrumb section-space-mb">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="row ec_breadcrumb_inner">
+          <div class="col-md-6 col-sm-12">
+            <h2 class="ec-breadcrumb-title">Coupons</h2>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <!-- ec-breadcrumb-list start -->
+            <ul class="ec-breadcrumb-list">
+              <li class="ec-breadcrumb-item"><a href="/">Home</a></li>
+              <li class="ec-breadcrumb-item active">Coupons</li>
+            </ul>
+            <!-- ec-breadcrumb-list end -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container col-md-6">
+    <% coupons.forEach(e => { %>
+     
+    
+    <div class="coupon-card">
+        <img src="/assets/icon.png" class="logo">
+        <h3><%= e.title %> </h3><br><span><h5><%= e.description %> </h5></span>
+        <di class="coupon-row">
+            <span id="cpnCode"><%= e.code %> </span>
+            <span id="cpnBtn">Copy Code</span>
+        </di>
+        <% date=e.expiry.toString() %> 
+        <p>Valid Till: <%= date.slice(0,16) %> </p>
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+    </div>
+    <br>
+    <% }) %>
+</div>
+<script>
+     var cpnBtn = document.getElementById("cpnBtn");
+            var cpnCode = document.getElementById("cpnCode");
+
+            cpnBtn.onclick = function(){
+                navigator.clipboard.writeText(cpnCode.innerHTML);
+                cpnBtn.innerHTML ="COPIED";
+                setTimeout(function(){
+                    cpnBtn.innerHTML="COPY CODE";
+                }, 3000);
+            }
+</script>
+<%- include('partials/__foot.ejs') %>

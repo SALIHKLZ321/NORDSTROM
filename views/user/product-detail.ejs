@@ -1,0 +1,251 @@
+<%- include('partials/__head.ejs') %>
+    <%- include('partials/__header.ejs') %>
+
+        <div class="sticky-header-next-sec ec-breadcrumb section-space-mb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row ec_breadcrumb_inner">
+                            <div class="col-md-6 col-sm-12">
+                                <h2 class="ec-breadcrumb-title"><%= product.title %> </h2>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <!-- ec-breadcrumb-list start -->
+                                <ul class="ec-breadcrumb-list">
+                                    <li class="ec-breadcrumb-item"><a href="/">Home</a></li>
+                                    &nbsp; <i class="fa-sharp fa-solid fa-greater-than"></i> &nbsp;
+                                    <li class="active"><%= product.title %> </li>
+                                </ul>
+                                <!-- ec-breadcrumb-list end -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Ec breadcrumb end -->
+
+        <!-- Sart Single product -->
+        <section class="ec-page-content section-space-p">
+            <div class="container">
+                <div class="row">
+                    <div class="ec-pro-rightside ec-common-rightside col-lg-12 col-md-12">
+                        <!-- Single product content Start -->
+                        <div class="single-pro-block">
+                            <div class="single-pro-inner">
+                                <div class="row">
+                                    <div class="single-pro-img single-pro-img-no-sidebar">
+                                        <div class="single-product-scroll">
+                                            <div class="single-product-cover">
+                                                <div class="single-slide zoom-image-hover">
+                                                    <img class="img-responsive"
+                                                        src="/productimages/<%= product.thumbnail %> " alt="" />
+                                                </div>
+                                                <% product.images.forEach(e=> { %>
+
+                                                    <div class="single-slide zoom-image-hover">
+                                                        <img class="img-responsive" src="/productimages/<%= e %>"
+                                                            alt="" />
+                                                    </div>
+                                                    <% }) %>
+                                                        <!-- <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="/assets/images/product-360/1_3.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="/assets/images/product-360/1_4.jpg"
+                                                    alt="">
+                                            </div>
+                                            <div class="single-slide zoom-image-hover">
+                                                <img class="img-responsive" src="/assets/images/product-360/1_5.jpg"
+                                                    alt="">
+                                            </div> -->
+                                            </div>
+                                            <div class="single-nav-thumb">
+
+                                                <div class="single-slide">
+                                                    <img class="img-responsive" src="/productimages/<%= product.thumbnail %>"
+                                                        alt="" style="width: max-content;" />
+                                                </div>
+                                                <% product.images.forEach(e => { %>
+                                                 
+                                                    <div class="single-slide">
+                                                        <img class="img-responsive" src="/productimages/<%= e %> "
+                                                        alt="" />
+                                                    </div>
+                                                    <% }) %>
+                                                <!-- <div class="single-slide">
+                                                    <img class="img-responsive" src="/assets/images/product-360/1_3.jpg"
+                                                        alt="" />
+                                                </div>
+                                                <div class="single-slide">
+                                                    <img class="img-responsive" src="/assets/images/product-360/1_4.jpg"
+                                                        alt="" />
+                                                </div>
+                                                <div class="single-slide">
+                                                    <img class="img-responsive" src="/assets/images/product-360/1_5.jpg"
+                                                        alt="" />
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="single-pro-desc single-pro-desc-no-sidebar">
+                                        <div class="single-pro-content">
+                                            <h5 class="ec-single-title"><%= product.title %> </h5>
+                                            <div class="ec-single-rating-wrap">
+                                                <div class="ec-single-rating">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </div>
+                                                <span class="ec-read-review"><a href="#ec-spt-nav-review">Be the first
+                                                        to review this product</a></span>
+                                            </div>
+                                            <div class="ec-single-desc">
+                                                <%= product.fulldetails %> 
+                                            </div>
+
+                                            <!-- <div class="ec-single-sales">
+                                                <div class="ec-single-sales-inner">
+                                                    <div class="ec-single-sales-title">
+                                                        sales accelerators
+                                                    </div>
+                                                    <div class="ec-single-sales-visitor">
+                                                        real time <span>24</span> visitor right now!
+                                                    </div>
+                                                    <div class="ec-single-sales-progress">
+                                                        <span class="ec-single-progress-desc">Hurry up!left 29 in
+                                                            stock</span>
+                                                        <span class="ec-single-progressbar"></span>
+                                                    </div>
+                                                    <div class="ec-single-sales-countdown">
+                                                        <div class="ec-single-countdown">
+                                                            <span id="ec-single-countdown"></span>
+                                                        </div>
+                                                        <div class="ec-single-count-desc">
+                                                            Time is Running Out!
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="ec-single-price-stoke">
+                                                <div class="ec-single-price">
+                                                    <span class="ec-single-ps-title">As low as</span>
+                                                    <span class="new-price"><%= product.price %> </span>
+                                                </div>
+                                                <div class="ec-single-stoke">
+                                                    <% if (product.quantity>10) { %>
+                                                        <span class="ec-single-ps-title">IN STOCK</span>
+                                                    <% } else if (product.quantity>0) { %>
+                                                        <span class="ec-single-ps-title">ONLY FEW LEFT !!! HURRY UP!</span>
+                                                        <% } else { %>
+                                                            <span class="ec-single-ps-title">OUT OF STOCK</span>
+                                                    <% } %>
+                                                    <!-- <span class="ec-single-sku">SKU#: WH12</span> -->
+                                                </div>
+                                            </div>
+                                            <div class="ec-pro-variation">
+                                                <% if (product.size) { %>
+                                                    <div class="ec-pro-variation-inner ec-pro-variation-size">
+                                                        <span>SIZE</span>
+                                                        <div class="ec-pro-variation-content">
+                                                            <ul>
+                                                                <% product.size.forEach(e => { %>
+
+                                                                    <li class="active " style="width: 70px;"><span><%= e %></span></li>
+                                                                 
+                                                                <% }) %>
+                                                                <!-- <li class="active"><span>7</span></li>
+                                                                <li><span>8</span></li>
+                                                                <li><span>9</span></li> -->
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                 
+                                                <% } %>
+                                                
+                                                <!-- <div class="ec-pro-variation-inner ec-pro-variation-color">
+                                                    <span>Color</span>
+                                                    <div class="ec-pro-variation-content">
+                                                        <ul>
+                                                            <li class="active">
+                                                                <span style="background-color: #23839c"></span>
+                                                            </li>
+                                                            <li><span style="background-color: #000"></span></li>
+                                                        </ul>
+                                                    </div>
+                                                </div> -->
+                                            </div>
+                                            <div class="ec-single-qty">
+                                                <div class="qty-plus-minus">
+                                                    <input class="qty-input" type="text" name="ec_qtybtn" value="1" />
+                                                </div>
+                                                <div class="ec-single-cart">
+                                                    <button onclick="addToCart('<%= product._id %>')" class="btn btn-primary">Add To Cart</button>
+                                                </div>
+                                                <div class="ec-single-wishlist">
+                                                    <a class="ec-btn-group wishlist" title="Wishlist" onclick="addToWishlist('<%= product._id %> ')"><img
+                                                            src="/assets/images/icons/wishlist.svg"
+                                                            class="svg_img pro_svg" alt="" /></a>
+                                                    </div>
+                                            </div>
+                                            <!-- <div class="ec-single-social">
+                                                <ul class="mb-0">
+                                                    <li class="list-inline-item facebook">
+                                                        <a href="#"><i class="ecicon eci-facebook"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item twitter">
+                                                        <a href="#"><i class="ecicon eci-twitter"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item instagram">
+                                                        <a href="#"><i class="ecicon eci-instagram"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item youtube-play">
+                                                        <a href="#"><i class="ecicon eci-youtube-play"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item behance">
+                                                        <a href="#"><i class="ecicon eci-behance"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item whatsapp">
+                                                        <a href="#"><i class="ecicon eci-whatsapp"></i></a>
+                                                    </li>
+                                                    <li class="list-inline-item plus">
+                                                        <a href="#"><i class="ecicon eci-plus"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script>
+            function addToCart(prodId) {
+                $.ajax({
+                    url: '/add-to-cart?id=' + prodId,
+                    method: 'get',
+                    success: ((response) => {
+                        console.log(response);
+                        
+                    })
+                })
+            }
+            function addToWishlist(prodId){
+                $.ajax({
+                    url: '/add-to-wishlist?id=' + prodId,
+                    method: 'get',
+                    success: ((response) => {
+                        
+                    })
+                })
+
+            }
+        </script>
+
+        <%- include('partials/__foot.ejs') %>

@@ -1,0 +1,506 @@
+<%- include('partials/__head.ejs') %>
+    </head>
+
+    <body class="checkout_page">
+        <%- include('partials/__header.ejs') %>
+
+            <!-- Ec breadcrumb start -->
+            <!-- Ec breadcrumb start -->
+            <div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row ec_breadcrumb_inner">
+                                <div class="col-md-6 col-sm-12">
+                                    <h2 class="ec-breadcrumb-title">Checkout</h2>
+                                </div>
+                                <div class="col-md-6 col-sm-12">
+                                    <!-- ec-breadcrumb-list start -->
+                                    <ul class="ec-breadcrumb-list">
+                                        <li class="ec-breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="ec-breadcrumb-item active">Checkout</li>
+                                    </ul>
+                                    <!-- ec-breadcrumb-list end -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Ec breadcrumb end -->
+
+            <!-- Ec checkout page -->
+            <section class="ec-page-content section-space-p">
+                <div class="container">
+                    <form action="/checkout" method="post" id="checkOutForm">
+                        <div class="row">
+                            <div class="ec-checkout-leftside col-lg-8 col-md-12 ">
+
+                                <div class="ec-checkout-content">
+                                    <div class="ec-checkout-inner">
+
+                                        <div class="ec-checkout-wrap margin-bottom-30 padding-bottom-3">
+                                            <div class="ec-checkout-block ec-check-bill">
+                                                <h3 class="ec-checkout-title">Billing Details</h3>
+                                                <div class="ec-bl-block-content">
+                                                    <div class="ec-check-subtitle">Checkout Options</div>
+                                                    <span class="ec-bill-option">
+                                                        <% let i=1 %>
+
+
+                                                            <% user.address.forEach(e=> { %>
+
+                                                                <div class="card border-dark mb-3"
+                                                                    style="max-width: 18rem;">
+                                                                    <div class="card-header"> <b>Address <%= i %>
+
+                                                                                <input type="radio"
+                                                                                    id="existAddress<%= i %>"
+                                                                                    name="address" value="<%= e._id %>"
+                                                                                    onclick="addressClick()" checked>
+                                                                                <label class="float-right"
+                                                                                    for="existAddress<%= i %>"></label>
+                                                                        </b> </div>
+                                                                    <div class="card-body text-dark">
+
+                                                                        <div
+                                                                            class="ec-vendor-detail-block ec-vendor-block-address mar-b-30">
+
+
+                                                                            <ul>
+
+                                                                                <li><strong>
+                                                                                        <%= e.name %>
+                                                                                    </strong></li>
+                                                                                <li>
+                                                                                    <%= e.phone %>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <%= e.house %>
+                                                                                </li>
+                                                                                <li>
+                                                                                    <%= e.street %> , <%= e.city %> ,
+                                                                                            <%= e.state %>
+                                                                                </li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <% i=i+1 %>
+                                                                    </a>
+                                                                    <% }) %>
+
+
+                                                                        <!-- <span>
+                                            <input type="radio" id="bill1" name="radio-group">
+                                            <label for="bill1">I want to use an existing address</label>
+                                        </span> -->
+                                                                        <span>
+                                                                            <input type="radio" value="new"
+                                                                                id="newAddress" name="address"
+                                                                                onclick="addressClick()" <%= user.address.length==0?'checked':''%>>
+                                                                            <label for="newAddress">I want to use new
+                                                                                address</label>
+                                                                        </span>
+
+                                                    </span>
+
+                                                    <div class="ec-register-wrapper">
+
+                                                        <div class="ec-register-container d-none" style="padding:4rem;"
+                                                            id="addressForm">
+
+                                                            <div class="ec-register-form ">
+
+                                                                <span class="ec-register-wrap">
+
+                                                                    <input type="text" name="name" id="adname"
+                                                                        placeholder="Full Name (required)" />
+                                                                </span>
+
+                                                                <span class="ec-register-wrap ec-register-half">
+
+                                                                    <input type="number" name="pin" id="adpin"
+                                                                        placeholder="Pin Code(required)"
+                                                                        maxlength="6" />
+                                                                </span>
+                                                                <span class="ec-register-wrap ec-register-half">
+
+                                                                    <input type="number" name="phone" id="adphone"
+                                                                        placeholder="Phone Number(required)"
+                                                                        maxlength="10" />
+                                                                </span>
+                                                                <span class="ec-register-wrap">
+
+                                                                    <input type="text" name="house" id="adhouse"
+                                                                        placeholder="House No,Building Name(required)" />
+                                                                </span>
+                                                                <span class="ec-register-wrap">
+                                                                    <input type="text" name="street" id="adstreet"
+                                                                        placeholder="Road name,Area,Colony(required)" />
+                                                                </span>
+                                                                <span class="ec-register-wrap ec-register-half">
+                                                                    <input type="text" name="city" id="adcity"
+                                                                        placeholder="City(required)" />
+
+                                                                </span>
+                                                                <span class="ec-register-wrap ec-register-half">
+                                                                    <input type="text" name="state" id="adstate"
+                                                                        placeholder="State(required)" />
+
+                                                                </span>
+
+                                                                <!-- <span class="ec-register-wrap ec-recaptcha">
+                                                        <span class="g-recaptcha" data-sitekey="6LfKURIUAAAAAO50vlwWZkyK_G2ywqE52NU7YO0S"
+                                                            data-callback="verifyRecaptchaCallback"
+                                                            data-expired-callback="expiredRecaptchaCallback"></span>
+                                                        <input class="form-control d-none" data-recaptcha="true" required
+                                                            data-error="Please complete the Captcha">
+                                                        <span class="help-block with-errors"></span>
+                                                    </span> -->
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!--cart content End -->
+
+                            </div>
+                            <!-- Sidebar Area Start -->
+                            <div class="ec-checkout-rightside col-lg-4 col-md-12">
+                                <div class="ec-sidebar-wrap">
+                                    <!-- Sidebar Summary Block -->
+                                    <div class="ec-sidebar-block">
+                                        <div class="ec-sb-title">
+                                            <h3 class="ec-sidebar-title">Summary</h3>
+                                        </div>
+                                        <div class="ec-sb-block-content">
+                                            <% products.forEach(e=> { %>
+
+
+                                                <div class="ec-checkout-pro">
+                                                    <div class="col-sm-12 mb-6">
+                                                        <div class="ec-product-inner">
+                                                            <div class="ec-pro-image-outer">
+                                                                <div class="ec-pro-image">
+                                                                    <a href="product-left-sidebar.html" class="image">
+                                                                        <img class="main-image"
+                                                                            src="/productimages/<%= e.thumbnail %>"
+                                                                            alt="Product" />
+                                                                        <img class="hover-image"
+                                                                            src="/productimages/<%= e.images[0] %>"
+                                                                            alt="Product" />
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ec-pro-content">
+                                                                <h5 class="ec-pro-title"><a
+                                                                        href="product-left-sidebar.html">
+                                                                        <%= e.title %>
+                                                                    </a></h5>
+                                                                <!-- <div class="ec-pro-rating">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star"></i>
+                                                </div> -->
+                                                                <span class="ec-price">
+                                                                    <span class="old-price">
+                                                                        <%= Math.round(parseInt(e.price)*1.1) %>
+                                                                    </span>
+                                                                    <span class="new-price">
+                                                                        <%= e.price %> x <span class="new-price"
+                                                                                style="color:red">
+                                                                                <%= e.quanty %>
+                                                                            </span>
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% }) %>
+                                                    <hr>
+                                                    <div class="ec-checkout-summary">
+                                                        <hr>
+                                                        <div>
+                                                            <span class="text-left">Sub-Total</span>
+                                                            <span class="text-right" id="totalAmount">
+                                                                <%= subTotal=products.reduce((acc,cur)=>
+                                                                    (acc+cur.actualPrice),0)
+                                                                    %>
+                                                            </span></span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="text-left">Delivery Charges</span>
+                                                            <span class="text-right">0.00</span>
+                                                        </div>
+                                                        <div>
+                                                            <span class="text-left">Coupan Discount</span>
+                                                            <span class="text-right"><a class="ec-checkout-coupan">Apply
+                                                                    Coupan</a></span>
+                                                        </div>
+                                                        <div class="ec-checkout-coupan-content">
+                                                            <!-- <form class="ec-checkout-coupan-form" name="ec-checkout-coupan-form"
+                                        method="post" action="#"> -->
+                                                            <input class="ec-coupan" type="text" id="couponCode"
+                                                                placeholder="Enter Your Coupan Code" name="ec-coupan"
+                                                                >
+                                                            <button class="ec-coupan-btn button btn-primary"
+                                                                name="subscribe" onclick="couponCheck()">Apply</button>
+                                                            <!-- </form> -->
+                                                        </div>
+                                                        <div class="ec-checkout-summary-total">
+
+                                                            <span class="text-left">Discount</span>
+                                                                <span class="text-right" id="discount">
+                                                                    0
+                                                                </span>
+                                                                <input type="text" name="total" id="totalInput"
+                                                                    value="<%= subTotal %>" class="d-none" />
+                                                                </div>
+                                                        <div class="ec-checkout-summary-total">
+                                                            
+                                                            <span class="text-left">Total Amount</span>
+                                                            <span class="text-right" id="amountAfterDiscount">
+                                                                <%= subTotal %>
+                                                            </span>
+                                                        </div>
+                                                        
+                                                            
+                                                    </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Sidebar Summary Block -->
+                            </div>
+
+
+
+                            <div class="ec-sidebar-wrap ec-checkout-pay-wrap">
+                                <!-- Sidebar Payment Block -->
+                                <div class="ec-sidebar-block">
+                                    <div class="ec-sb-title">
+                                        <h3 class="ec-sidebar-title">Payment Method</h3>
+                                    </div>
+                                    <div class="ec-sb-block-content">
+                                        <div class="ec-checkout-pay">
+                                            <div class="ec-pay-desc">Please select the preferred payment method to use
+                                                on this
+                                                order.</div>
+
+                                            <span class="ec-pay-option">
+                                                <span>
+                                                    <input type="radio" id="pay1" name="payment"
+                                                        value="Cash On Delivery">
+                                                    <label for="pay1">Cash On Delivery</label>
+                                                    <input type="radio" id="pay2" name="payment" value="Online">
+                                                    <label for="pay2">Online Payment</label>
+
+                                                </span>
+                                            </span>
+                                            <span class="ec-pay-commemt">
+                                                <span class="ec-pay-opt-head">Add Comments About Your Order</span>
+                                                <textarea name="your-commemt" placeholder="Comments"></textarea>
+                                            </span>
+                                            <span class="ec-pay-agree"><input type="checkbox" value="" required><a
+                                                    href="#">I have
+                                                    read and agree to the <span>Terms & Conditions</span></a><span
+                                                    class="checked"></span></span>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sidebar Payment Block -->
+                            </div>
+                            <div class="ec-sidebar-wrap ec-check-pay-img-wrap">
+                                <!-- Sidebar Payment Block -->
+                                <div class="ec-sidebar-block">
+                                    <div class="ec-sb-title">
+                                        <h3 class="ec-sidebar-title">Other Payment Method</h3>
+                                    </div>
+                                    <div class="ec-sb-block-content">
+                                        <div class="ec-check-pay-img-inner">
+                                            <div class="ec-check-pay-img">
+                                                <img src="assets/images/icons/payment1.png" alt="">
+                                            </div>
+                                            <div class="ec-check-pay-img">
+                                                <img src="assets/images/icons/payment2.png" alt="">
+                                            </div>
+                                            <div class="ec-check-pay-img">
+                                                <img src="assets/images/icons/payment3.png" alt="">
+                                            </div>
+                                            <div class="ec-check-pay-img">
+                                                <img src="assets/images/icons/payment4.png" alt="">
+                                            </div>
+                                            <div class="ec-check-pay-img">
+                                                <img src="assets/images/icons/payment5.png" alt="">
+                                            </div>
+                                            <div class="ec-check-pay-img">
+                                                <img src="assets/images/icons/payment6.png" alt="">
+                                            </div>
+                                            <div class="ec-check-pay-img">
+                                                <img src="assets/images/icons/payment7.png" alt="">
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Sidebar Payment Block -->
+                            </div>
+                            <span class="ec-check-order-btn">
+                                <button type="submit" class="btn btn-primary">Place Order</button>
+                            </span>
+
+                        </div>
+                </div>
+                </div>
+                </form>
+            </section>
+
+
+            <%- include('partials/__foot.ejs') %>
+                <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+                <script>
+                    $('#checkOutForm').submit((e) => {
+                        e.preventDefault();
+                        $.ajax({
+                            url: '/checkout',
+                            method: 'post',
+                            data: $('#checkOutForm').serialize(),
+                            success: (response) => {
+                                
+                                if (response.status) {
+                                    location.href = '/orderSuccess'
+                                } else {
+                 
+                        console.log(response.order.id);
+                                    
+                                    razorpayPayment(response.order)
+                                }
+                            }
+                        })
+
+                    })
+                    function razorpayPayment(order) {
+                        
+                     
+                        var options = {
+                            "key": "rzp_test_KLM15YskDLyiuY", // Enter the Key ID generated from the Dashboard
+                            "amount": `${order.amount}`, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                            "currency": "INR",
+                            "name": "NORDSTROM",
+                            "description": "Test Transaction",
+                            "image": "/assets/icon.png",
+                            "order_id": `${order.id}`, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                            "handler": function (response) {
+                                // alert(response.razorpay_payment_id);
+                                // alert(response.razorpay_order_id);
+                                // alert(response.razorpay_signature)
+                                console.log(response);
+                                verifyPayment(response, order)
+                            },
+                            "prefill": {
+                                "name": "Gaurav Kumar",
+                                "email": "gaurav.kumar@example.com",
+                                "contact": "9999999999"
+                            },
+                            "notes": {
+                                "address": "Razorpay Corporate Office"
+                            },
+                            "theme": {
+                                "color": "#3399cc"
+                            }
+                        };
+                        var rzp1 = new Razorpay(options);
+                        rzp1.open();
+
+                    }
+
+                    function verifyPayment(payment, order) {
+                        console.log('verify payment');
+                        $.ajax({
+                            url: '/verifyPayment',
+                            method: 'post',
+                            data: {
+                                payment,
+                                order
+                            },
+                            success:((response)=>{
+                                if(response.status){
+                                    location.href = '/orderSuccess'
+                                }else{
+                                    alert('payment failed')
+                                }
+                            })
+
+                        })
+                    }
+
+
+
+                    function addressClick() {
+                        let radio = $("input[type='radio'][name='address']:checked").val();
+                        if (radio == 'new') {
+
+                            $('#addressForm').removeClass('d-none')
+
+                            $("#adname").attr('required', true)
+                            $("#adpin").attr('required', true)
+                            $("#adphone").attr('required', true)
+                            $("#adhouse").attr('required', true)
+                            $("#adcity").attr('required', true)
+                            $("#adstate").attr('required', true)
+
+
+                        } else {
+                            $('#addressForm').addClass('d-none')
+
+                            $("#adname").attr('required', false)
+                            $("#adpin").attr('required', false)
+                            $("#adphone").attr('required', false)
+                            $("#adhouse").attr('required', false)
+                            $("#adcity").attr('required', false)
+                            $("#adstate").attr('required', false)
+                        }
+
+                    }
+                    function couponCheck(){
+                        const coupon=$('#couponCode').val()
+                        $.ajax({
+                            url:'/coupon-check',
+                            method:'post',
+                            data:{
+                                coupon
+                            },
+                            success:(async(response)=>{
+                                if(response.coupon){
+                                    console.log(response.coupon);
+                                    const subTotal= parseInt($('#totalAmount').html())
+                                    const percentage=await response.coupon.percentage
+                                    const discount=Math.round(subTotal*percentage/100)
+                                    $('#discount').html(discount)
+                                    $('#amountAfterDiscount').html(subTotal-discount)
+                                    $('#totalInput').val(subTotal-discount)
+                                    
+                                }else{
+                                    console.log(response.message);
+                                }
+                            })
+                        })
+                    }
+
+                </script>

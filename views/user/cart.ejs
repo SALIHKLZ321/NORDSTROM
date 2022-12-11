@@ -1,0 +1,270 @@
+<%- include('partials/__head.ejs') %> 
+<%- include('partials/__header.ejs') %>
+
+<!-- Ec breadcrumb start -->
+<div class="sticky-header-next-sec ec-breadcrumb section-space-mb">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="row ec_breadcrumb_inner">
+          <div class="col-md-6 col-sm-12">
+            <h2 class="ec-breadcrumb-title">Cart</h2>
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <!-- ec-breadcrumb-list start -->
+            <ul class="ec-breadcrumb-list">
+              <li class="ec-breadcrumb-item"><a href="/">Home</a></li>
+              <li class="ec-breadcrumb-item active">Cart</li>
+            </ul>
+            <!-- ec-breadcrumb-list end -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Ec breadcrumb end -->
+
+<!-- Ec cart page -->
+<section class="ec-page-content section-space-p">
+  <div class="container">
+    <div class="row">
+      <div class="ec-cart-leftside col-lg-8 col-md-12">
+        <!-- cart content Start -->
+        <div class="ec-cart-content">
+          <div class="ec-cart-inner">
+            <div class="row">
+              <form action="#">
+                <div class="table-content cart-table-content">
+                  <% if (products) { %>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th style="text-align: center">Quantity</th>
+                        <th>Total</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% products.forEach(e => { %>
+
+                      <tr id="prodrow<%= e._id %>">
+                        <td data-label="Product" class="ec-cart-pro-name">
+                          <a href="product-left-sidebar.html"
+                            ><img
+                              class="ec-cart-pro-img mr-4"
+                              src="/productimages/<%= e.thumbnail %>"
+                              alt=""
+                            /><%= e.title%></a
+                          >
+                        </td>
+                        <td data-label="Price" class="ec-cart-pro-price">
+                          <span class="amount"><%= e.price %></span>
+                        </td>
+                        <td
+                          data-label="Quantity"
+                          class="ec-cart-pro-qty"
+                          style="text-align: center"
+                        >
+                          <% if (e.quanty>1) { %>
+                          <a onclick="qtyDec('<%= e._id %>','<%= e.price %>')"
+                            ><i class="fa-solid fa-minus"></i
+                          ></a>
+                          <% }else{ %>
+                          <a><i class="fa-solid fa-minus"></i><% } %></a
+                          >&nbsp;&nbsp;
+                          <span id="quanty<%= e._id %>"><%= e.quanty %></span
+                          >&nbsp;&nbsp;
+                          <!-- <a href="/inc-quantity?id=<%= e._id %>"><i class="fa-solid fa-plus"></i></a> -->
+                          <a onclick="qtyInc('<%= e._id %>','<%= e.price %>')"
+                            ><i class="fa-solid fa-plus"></i
+                          ></a>
+                        </td>
+                        <td
+                          data-label="Total"
+                          class="ec-cart-pro-subtotal"
+                          id="actual<%= e._id %>"
+                        >
+                          <%= e.actualPrice %>
+                        </td>
+                        <td data-label="Remove" class="ec-cart-pro-remove">
+                          <button onclick="removeFromCart('<%= e._id %>')">
+                            <i class="fa-solid fa-xmark"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      <% }) %>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="ec-cart-update-bottom">
+                      <a href="/">Continue Shopping</a>
+                      <a href="/checkout" class="btn btn-primary">Check Out</a>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!--cart content End -->
+      </div>
+      <!-- Sidebar Area Start -->
+      <div class="ec-cart-rightside col-lg-4 col-md-12">
+        <div class="ec-sidebar-wrap">
+          <!-- Sidebar Summary Block -->
+          <div class="ec-sidebar-block">
+            <div class="ec-sb-title">
+              <h3 class="ec-sidebar-title">Summary</h3>
+            </div>
+
+            <div class="ec-sb-block-content">
+              <div class="ec-cart-summary-bottom">
+                <div class="ec-cart-summary">
+                  <div>
+                    <span class="text-left">Sub-Total</span>
+                    <span class="text-right" id="subtotal"
+                      ><%=
+                      subTotal=products.reduce((acc,cur)=>(acc+cur.actualPrice),0)
+                      %>
+                    </span>
+                  </div>
+                  <div>
+                    <span class="text-left">Delivery Charges</span>
+
+                    <span class="text-right"><%= delcharge=0 %></span>
+                  </div>
+                  <div>
+                    <span class="text-left">Coupan Discount</span>
+                    <span class="text-right"
+                      ><a class="ec-cart-coupan">Apply Coupan</a></span
+                    >
+                  </div>
+                  <div class="ec-cart-coupan-content">
+                    <form
+                      class="ec-cart-coupan-form"
+                      name="ec-cart-coupan-form"
+                      method="post"
+                      action="#"
+                    >
+                      <input
+                        class="ec-coupan"
+                        type="text"
+                        required=""
+                        placeholder="Enter Your Coupan Code"
+                        name="ec-coupan"
+                        value=""
+                      />
+                      <button
+                        class="ec-coupan-btn button btn-primary"
+                        type="submit"
+                        name="subscribe"
+                        value=""
+                      >
+                        Apply
+                      </button>
+                    </form>
+                  </div>
+                  <div class="ec-cart-summary-total">
+                    <span class="text-left">Total Amount</span>
+                    <span class="text-right" id="total"><%= subTotal %> </span>
+                  </div>
+                </div>
+                <% } else { %>
+                <p class="text-center">Your Cart is Empty.</p>
+                <div class="ec-cart-update-bottom">
+                  <a href="/">Continue Shopping</a>
+                </div>
+
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <!-- Sidebar Summary Block -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  function removeFromCart(prodId) {
+    Swal.fire({
+      title: "Are you sure? to remove this item ",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, remove it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: "/remove-from-cart?id=" + prodId,
+          method: "get",
+          success: (response) => {
+            if (response.status) {
+              $("#prodrow" + prodId).remove();
+            }
+          },
+        });
+        Swal.fire(
+          "Removed!",
+          "Your item has been removed from your cart",
+          "success"
+        );
+      }
+    });
+  }
+
+  function qtyInc(id, price) {
+    $.ajax({
+      url: "/inc-quantity?id=" + id,
+      method: "get",
+      success: (response) => {
+        let quanty = $(`#quanty${id}`).html();
+        
+        let newQuanty = parseInt(quanty) + 1;
+        $(`#quanty${id}`).html(newQuanty);
+        let actual = $(`#actual${id}`).html();
+        let newActual = parseInt(actual) + parseInt(price);
+        $(`#actual${id}`).html(newActual);
+        let subTotal = $(`#subtotal`).html();
+        let newSub = parseInt(subTotal) + parseInt(price);
+        $(`#subtotal`).html(newSub);
+        let total = $(`#total`).html();
+        let newTotal = parseInt(total) + parseInt(price);
+        $(`#total`).html(newTotal);
+      },
+    });
+  }
+  function qtyDec(id, price) {
+    if ($(`#quanty${id}`).html() <= 1) {
+      removeFromCart(id);
+    } else {
+      $.ajax({
+        url: "/dec-quantity?id=" + id,
+        method: "get",
+        success: (response) => {
+          let quanty = $(`#quanty${id}`).html();
+          let newQuanty = parseInt(quanty) - 1;
+          $(`#quanty${id}`).html(newQuanty);
+          let actual = $(`#actual${id}`).html();
+          let newActual = parseInt(actual) - parseInt(price);
+          $(`#actual${id}`).html(newActual);
+          let subTotal = $(`#subtotal`).html();
+          let newSub = parseInt(subTotal) - parseInt(price);
+          $(`#subtotal`).html(newSub);
+          let total = $(`#total`).html();
+          let newTotal = parseInt(total) - parseInt(price);
+          $(`#total`).html(newTotal);
+        }
+      });
+    }
+  }
+</script>
+
+<%- include('partials/__foot.ejs') %>

@@ -1,0 +1,91 @@
+<%- include('partials/_head.ejs') %>
+    <%- include('partials/leftsidebar.ejs') %>
+        <%- include('partials/_header.ejs') %>
+            <div class="ec-content-wrapper">
+                <div class="content">
+                    <div class="breadcrumb-wrapper breadcrumb-wrapper-2 breadcrumb-contacts">
+                        <h1>Banner</h1>
+                        <p class="breadcrumbs"><span><a href="index.html">Home</a></span>
+                            <span><i class="mdi mdi-chevron-right"></i></span>Edit banner
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-12">
+                            <div class="ec-cat-list card card-default mb-24px">
+                                <div class="card-body">
+                                    <div class="ec-cat-form">
+                                        <h4>Edit Banner</h4>
+
+                                        <form action="/admin/edit-banner?id=<%= banner._id %>" method="post" enctype="multipart/form-data">
+                                            <div class="row ec-vendor-uploads">
+                                                <div class="col-lg-9">
+                                                    <div class="ec-vendor-img-upload">
+                                                        <div class="ec-vendor-main-img justify-content-center">
+                                                            <div class="avatar-upload">
+                                                                <div class="avatar-edit">
+                                                                    <input type="file" id="imageUpload"
+                                                                        class="ec-image-upload" value="<%= banner.image.slice(6) %> "
+                                                                        accept=".png, .jpg, .jpeg" name="image"
+                                                                        required />
+                                                                    <label for="imageUpload"><img
+                                                                            src="/assets/img/icons/edit.svg"
+                                                                            class="svg_img header_svg"
+                                                                            alt="edit" /></label>
+                                                                </div>
+                                                                <div class="avatar-preview ec-preview">
+                                                                    <div class="imagePreview ec-div-preview">
+                                                                        <img class="ec-image-preview"
+                                                                            src="/assets/img/products/vender-upload-preview.jpg"
+                                                                            alt="edit" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label for="text" class="col-12 col-form-label">Name</label>
+                                                <div class="col-12">
+                                                    <input id="text" name="title" class="form-control"
+                                                        type="text" value="<%= banner.title %>">
+                                                </div>
+                                            </div>
+
+                                <div class="form-group row">
+                                    <label for="text" class="col-12 col-form-label">Route</label>
+                                    <div class="col-12">
+                                        <input id="text" name="route" class="form-control here slug-title"
+                                            type="text" value="<%= banner.route %>">
+                                    </div>
+                                </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-12 col-form-label">Description</label>
+                                                <div class="col-12">
+                                                    <textarea id="description" name="description" cols="40" rows="4"
+                                                        class="form-control"><%= banner.description %> </textarea>
+                                                </div>
+                                            </div>
+
+
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <button name="submit" type="submit"
+                                                        class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <%- include('partials/foot.ejs') %>

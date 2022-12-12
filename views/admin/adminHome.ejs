@@ -118,177 +118,43 @@
             <div class="col-12 p-b-15">
                 <!-- Recent Order Table -->
                 <div class="card card-table-border-none card-default recent-orders" id="recent-orders">
-                    <div class="card-header justify-content-between">
-                        <h2>Recent Orders</h2>
-                        <!-- <div class="date-range-report">
-                            <span></span>
-                        </div> -->
-                    </div>
-                    <div class="card-body pt-0 pb-5">
-                        <table class="table card-table table-responsive table-responsive-large"
-                            style="width:100%">
-                            <thead>
-                                <tr>
+                    
+                    <div class="card-body pt-5 pb-5">
+                        
+                            <table id="table_id" class="display nowrap">
+                                <button id="pdf">PDF</button>
+                                <thead>
+                                    <tr>
                                     <th>Order ID</th>
                                     <th>User Name</th>
-                                    <th class="d-none d-lg-table-cell">No.of Products</th>
-                                    <th class="d-none d-lg-table-cell">Order Date</th>
-                                    <th class="d-none d-lg-table-cell">Payment</th>
+                                    <th >No.of Products</th>
+                                    <th >Order Date</th>
+                                    <th >Payment</th>
                                     <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% let orders=totalOrders.slice(0,5) %> 
-                                <% orders.forEach(e => { %>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <% totalOrders.forEach(e => { %>
                                  
-                                
-                                <tr>
-                                    <td><%= e._id %></td>
+                                    <tr>
+                                        <td><%= e._id %></td>
                                     <td>
-                                        <a class="text-dark" href=""><strong><%= e.userDetails[0].name %> </strong></a>
+                                       <strong><%= e.userDetails[0].name %> </strong>
                                     </td>
-                                    <td class="d-none d-lg-table-cell"><%= e.products.length %> </td>
+                                    <td ><%= e.products.length %> </td>
                                     <% let date=e.purchaseDate.toString() %> 
-                                    <td class="d-none d-lg-table-cell"><%= date.slice(0,21) %> </td>
+                                    <td ><%= date.slice(0,21) %> </td>
                                     <td><strong><%= e.paymentMethod=='Cash On Delivery'?'Cash On Delivery':'Paid' %></strong><br>
                                         ₹ <%= e.total %>  
                                     </td>
                                     <td>
                                         <span class="badge badge-success"><%= e.status %> </span>
                                     </td>
-                                    <!-- <td class="text-right">
-                                        <div class="dropdown show d-inline-block widget-dropdown">
-                                            <a class="dropdown-toggle icon-burger-mini" href=""
-                                                role="button" id="dropdown-recent-order1"
-                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false" data-display="static"></a>
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li class="dropdown-item">
-                                                    <a href="#">View</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a href="#">Remove</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td> -->
-                                </tr>
-                                <% }) %>
-                                <!-- <tr>
-                                    <td>24541</td>
-                                    <td>
-                                        <a class="text-dark" href=""> Toddler Shoes, Gucci Watch</a>
-                                    </td>
-                                    <td class="d-none d-lg-table-cell">2 Units</td>
-                                    <td class="d-none d-lg-table-cell">Nov 15, 2018</td>
-                                    <td class="d-none d-lg-table-cell">$550</td>
-                                    <td>
-                                        <span class="badge badge-primary">Delayed</span>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="dropdown show d-inline-block widget-dropdown">
-                                            <a class="dropdown-toggle icon-burger-mini" href="#"
-                                                role="button" id="dropdown-recent-order2"
-                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false" data-display="static"></a>
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li class="dropdown-item">
-                                                    <a href="#">View</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a href="#">Remove</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>24541</td>
-                                    <td>
-                                        <a class="text-dark" href=""> Hat Black Suits</a>
-                                    </td>
-                                    <td class="d-none d-lg-table-cell">1 Unit</td>
-                                    <td class="d-none d-lg-table-cell">Nov 18, 2018</td>
-                                    <td class="d-none d-lg-table-cell">$325</td>
-                                    <td>
-                                        <span class="badge badge-warning">On Hold</span>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="dropdown show d-inline-block widget-dropdown">
-                                            <a class="dropdown-toggle icon-burger-mini" href="#"
-                                                role="button" id="dropdown-recent-order3"
-                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false" data-display="static"></a>
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li class="dropdown-item">
-                                                    <a href="#">View</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a href="#">Remove</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>24541</td>
-                                    <td>
-                                        <a class="text-dark" href=""> Backpack Gents, Swimming Cap Slin</a>
-                                    </td>
-                                    <td class="d-none d-lg-table-cell">5 Units</td>
-                                    <td class="d-none d-lg-table-cell">Dec 13, 2018</td>
-                                    <td class="d-none d-lg-table-cell">$200</td>
-                                    <td>
-                                        <span class="badge badge-success">Completed</span>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="dropdown show d-inline-block widget-dropdown">
-                                            <a class="dropdown-toggle icon-burger-mini" href="#"
-                                                role="button" id="dropdown-recent-order4"
-                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false" data-display="static"></a>
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li class="dropdown-item">
-                                                    <a href="#">View</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a href="#">Remove</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>24541</td>
-                                    <td>
-                                        <a class="text-dark" href=""> Speed 500 Ignite</a>
-                                    </td>
-                                    <td class="d-none d-lg-table-cell">1 Unit</td>
-                                    <td class="d-none d-lg-table-cell">Dec 23, 2018</td>
-                                    <td class="d-none d-lg-table-cell">$150</td>
-                                    <td>
-                                        <span class="badge badge-danger">Cancelled</span>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="dropdown show d-inline-block widget-dropdown">
-                                            <a class="dropdown-toggle icon-burger-mini" href="#"
-                                                role="button" id="dropdown-recent-order5"
-                                                data-bs-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false" data-display="static"></a>
-                                            <ul class="dropdown-menu dropdown-menu-right">
-                                                <li class="dropdown-item">
-                                                    <a href="#">View</a>
-                                                </li>
-                                                <li class="dropdown-item">
-                                                    <a href="#">Remove</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </td>
-                                </tr> -->
-                            </tbody>
-                        </table>
+                                    </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                            
                     </div>
                 </div>
             </div>
@@ -303,7 +169,7 @@
                         
                     </div>
                     <div class="card-body pt-0 pb-15px">
-                        <table class="table ">
+                        <table class="table" id="invoice" >
                             <tbody>
                                 <% userOrders.forEach(e => { %>
                                  
@@ -406,7 +272,22 @@
         </div>
     </div> <!-- End Content -->
 </div> <!-- End Content Wrapper -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script> -->
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.4.1/css/buttons.dataTables.min.css">
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.flash.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.4.1/js/buttons.print.min.js"></script>
 <script>
+    
     const statusCount='<%= statusCount %>'
     const statusName='<%= statusName %>'
     const revenueDate='<%= revenueDate %>'.replace(/&#34;/gi, "'")
@@ -414,6 +295,26 @@
     const nOrders='<%= noOfOrders %>'.replace(/&#34;/gi, "'")
     const statName=statusName.replace(/&#34;/gi, "'")
     const statCount=statusCount.replace(/&#34;/gi, "'")
+    $(document).ready( function () {
+        
+    $('#table_id').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+
+} );
+const button = document.getElementById('pdf');
+
+			function generatePDF() {
+				// Choose the element that your content will be rendered to.
+				const element = document.getElementById('invoice');
+				// Choose the element and save the PDF for your user.
+				html2pdf().from(element).save();
+			}
+
+			button.addEventListener('click', generatePDF);
 </script>
 
 <%- include('partials/foot.ejs') %>

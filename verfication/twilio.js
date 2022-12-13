@@ -2,7 +2,7 @@
 
 
 const accountSid ="AC68d1efa570ef66ae9994e50333197e6d"
-const authToken ="90bf454daa66ab892a964387beebdfa7"
+const authToken ="eaf3d8b2ca62790dce8a2fca42471d38"
 const sessionId ="VA9d1dfea7ba91384551410e5b814972c9"
 
 module.exports.sendSms = (phone)=>{

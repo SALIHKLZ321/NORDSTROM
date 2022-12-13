@@ -37,7 +37,7 @@ app.use(
 app.use('/admin',admin)
 app.use('/',user)
 
-const database = 'mongodb+srv://saelee:saelee@ecommerce.zdnz0fj.mongodb.net/?retryWrites=true&w=majority'
+const database = process.env.MONGO_URI
 mongoose.connect(database, {useUnifiedTopology: true, useNewUrlParser: true })
 .then(() => console.log('DB connected'))
 .catch(err => console.log(err));

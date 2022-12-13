@@ -1,12 +1,13 @@
 
 
 
-const accountSid ="AC68d1efa570ef66ae9994e50333197e6d"
-const authToken ="eaf3d8b2ca62790dce8a2fca42471d38"
-const sessionId ="VA9d1dfea7ba91384551410e5b814972c9"
+const accountSid =process.env.TWILIO_ACCOUNT_SID
+const authToken =process.env.TWILIO_TOKEN_AUTH
+const sessionId =process.env.TWILIO_SESSION_SID
 
 module.exports.sendSms = (phone)=>{
  const client = require('twilio')(accountSid, authToken);
+ 
 
     client.verify.v2.services(sessionId)
                     .verifications

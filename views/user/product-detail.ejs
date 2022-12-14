@@ -235,6 +235,15 @@
                     url: '/add-to-cart?id=' + prodId,
                     method: 'get',
                     success: ((response) => {
+                        if(response==false){
+                            Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: ' Out Of Stock',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        }else if(!response.exist){
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -242,8 +251,19 @@
                             showConfirmButton: false,
                             timer: 1500
                         })
-                        console.log(response);
-                        
+                        let count = $('#cartCount').html()
+                        count = parseInt(count) + 1
+                        $('#cartCount').html(count)
+                    }else{
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: ' Item added to Cart',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+
+                    }
                     })
                 })
             }
@@ -252,6 +272,7 @@
                     url: '/add-to-wishlist?id=' + prodId,
                     method: 'get',
                     success: ((response) => {
+                        console.log(response);
                         if(!response.inc){
                             Swal.fire({
                             position: 'top-end',
@@ -260,12 +281,11 @@
                             showConfirmButton: false,
                             timer: 1500
                         })
-                            let count = $('#wishlist').html
-                            count = parseInt(count) -1
-                            $('#wishlist').html(count)
-                            count = $('#wishlist1').html
+                            let count = $('#wishCount').html()
                             count = parseInt(count) - 1
-                            $('#wishlist1').html(count)
+                            $('#wishCount').html(count)
+                            
+                            
 
                         }else{
                             Swal.fire({
@@ -275,14 +295,17 @@
                             showConfirmButton: false,
                             timer: 1500
                         })
-                            let count = $('#wishlist').html
-                            count = parseInt(count) +1
-                            $('#wishlist').html(count)
-                            count = $('#wishlist1').html
+                            let count = $('#wishCount').html()
+                            console.log('before',count);
                             count = parseInt(count) + 1
-                            $('#wishlist1').html(count)
+                            console.log('after',count);
+
+                            $('#wishCount').html(count)
+                            
+                            
 
                         }
+                        
                         
                     })
                 })

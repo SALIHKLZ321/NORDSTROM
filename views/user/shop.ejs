@@ -221,14 +221,88 @@
 
         </div>
     </div>
+    <div class="modal fade" id="ec_quickview_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="btn-close qty_close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12 col-xs-12">
+                            <!-- Swiper -->
+                            <div class="qty-product-cover">
+                                <div class="qty-slide">
+                                    <img id="image-1" class="img-responsive" src="assets/images/product-image/3_1.jpg" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img id="image-2" class="img-responsive" src="assets/images/product-image/3_2.jpg" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img id="image-3" class="img-responsive" src="assets/images/product-image/3_3.jpg" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img id="image-4" class="img-responsive" src="assets/images/product-image/3_4.jpg" alt="">
+                                </div>
+                                
+                            </div>
+                            <div class="qty-nav-thumb">
+                                <div class="qty-slide">
+                                    <img id="image-1s" class="img-responsive" src="" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img id="image-2s" class="img-responsive" src="" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img id="image-3s" class="img-responsive" src="" alt="">
+                                </div>
+                                <div class="qty-slide">
+                                    <img id="image-4s" class="img-responsive" src="" alt="">
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-7 col-sm-12 col-xs-12">
+                            <div class="quickview-pro-content">
+                                <h5 class="ec-quick-title"><a id="title" href="#"></a>
+                                </h5>
+                                <div id="fulldetails" class="ec-quickview-desc"></div>
+                                <div class="ec-quickview-price">
+                                    <span id="oldPrice" class="old-price"></span>
+                                    <span id="price" class="new-price"></span>
+                                </div>
+                                </div>
+                                <div class="ec-quickview-qty">
+                                    <!-- <div class="qty-plus-minus">
+                                        <input  class="qty-input" type="text" name="ec_qtybtn" value="1" />
+                                    </div> -->
+                                    <div class="ec-quickview-cart ">
+                                        <button id="addToCart" onclick="" class="btn btn-primary" style="margin: 20%;" ><img src="assets/images/icons/cart.svg"
+                                                class="svg_img pro_svg" alt="" /> Add To Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 <script>
             function addToCart(prodId) {
-
                 $.ajax({
                     url: '/add-to-cart?id=' + prodId,
                     method: 'get',
                     success: ((response) => {
+                        if(response==false){
+                            Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: ' Out Of Stock',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        }else if(!response.exist){
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -236,9 +310,19 @@
                             showConfirmButton: false,
                             timer: 1500
                         })
-                        let count = $('#cartCount').html
+                        let count = $('#cartCount').html()
                         count = parseInt(count) + 1
                         $('#cartCount').html(count)
+                    }else{
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: ' Item added to Cart',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+
+                    }
                     })
                 })
             }
@@ -256,12 +340,11 @@
                             showConfirmButton: false,
                             timer: 1500
                         })
-                            let count = $('#wishlist').html
-                            count = parseInt(count) -1
-                            $('#wishlist').html(count)
-                            count = $('#wishlist1').html
+                            let count = $('#wishCount').html()
                             count = parseInt(count) - 1
-                            $('#wishlist1').html(count)
+                            $('#wishCount').html(count)
+                            
+                            
 
                         }else{
                             Swal.fire({
@@ -271,12 +354,14 @@
                             showConfirmButton: false,
                             timer: 1500
                         })
-                            let count = $('#wishlist').html
-                            count = parseInt(count) +1
-                            $('#wishlist').html(count)
-                            count = $('#wishlist1').html
+                            let count = $('#wishCount').html()
+                            console.log('before',count);
                             count = parseInt(count) + 1
-                            $('#wishlist1').html(count)
+                            console.log('after',count);
+
+                            $('#wishCount').html(count)
+                            
+                            
 
                         }
                         

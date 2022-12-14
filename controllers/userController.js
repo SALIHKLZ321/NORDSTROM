@@ -31,7 +31,6 @@ module.exports = {
       const products = await Product.find().sort({title:-1});
       const banner=await Banner.find()
       let user = req.session.user;
-      let wishlength=user.wishlist.length
       res.render("user/home", { user, products,wishLength,cartLength ,banner });
     }
   },

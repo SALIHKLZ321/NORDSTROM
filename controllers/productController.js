@@ -146,14 +146,8 @@ module.exports = {
   },
   productDetails: async (req, res) => {
     id = req.params.id;
-
     const product = await Product.findOne({ _id: id });
-
-    if (req.session.adminLogin) {
       res.render("admin/productDetails", { product });
-    } else {
-      res.render("user/product-detail", { product });
-    }
   },
   category: (req, res) => {
     res.render("admin/addCategory");
@@ -173,14 +167,26 @@ module.exports = {
   productView: async (req, res) => {
     try {
       let user = req.session.user;
+      
 
       prodId = req.query.id;
       let product = await Product.findOne({ _id: prodId });
 
       if (req.session.loggedIn) {
         user = req.session.user;
-        wishlength = user.wishlist.length;
-        res.render("user/product-detail", { product, user, wishlength });
+        const userId=user._id
+        const userInfo=await User.findOne({_id:mongoose.Types.ObjectId(userId)})
+        const cart=await Cart.findOne({user:mongoose.Types.ObjectId(userId)})
+
+        let wishLength=userInfo.wishlist.length
+        let cartLength
+        if(cart){
+        cartLength=cart.products.length
+        }else{
+          cartLength=0
+        }
+        console.log(wishLength,cartLength);
+        res.render("user/product-detail", { product, user, wishLength,cartLength });
       } else {
         res.render("user/product-detail", {
           product,

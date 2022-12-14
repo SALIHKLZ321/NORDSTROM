@@ -185,8 +185,7 @@ module.exports = {
         }else{
           cartLength=0
         }
-        console.log(wishLength,cartLength);
-        res.render("user/product-detail", { product, user, wishLength,cartLength });
+                res.render("user/product-detail", { product, user, wishLength,cartLength });
       } else {
         res.render("user/product-detail", {
           product,

@@ -200,7 +200,18 @@ module.exports = {
     const products = await Product.find();
     const category = await Category.find();
     if (user) {
-      res.render("user/shop", { user, products, category });
+      const userId=req.session.user._id
+        const userInfo=await User.findOne({_id:mongoose.Types.ObjectId(userId)})
+        const cart=await Cart.findOne({user:mongoose.Types.ObjectId(userId)})
+
+        let wishLength=userInfo.wishlist.length
+        let cartLength
+        if(cart){
+        cartLength=cart.products.length
+        }else{
+          cartLength=0
+        }
+      res.render("user/shop", { user, products, category,wishLength,cartLength });
     } else {
       res.render("user/shop", { user: false, products, category });
     }

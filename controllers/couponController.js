@@ -22,7 +22,9 @@ module.exports={
     userCoupons:async(req,res)=>{
         let user=req.session.user
         let coupons=await Coupon.find()
-        res.render('user/coupons',{user,coupons})
+        const wishLength=req.session.wishLength
+        const cartLength=req.session.cartLength
+        res.render('user/coupons',{user,coupons,wishLength,cartLength})
     },
     checkCoupon:async(req,res)=>{
         let couponCode=req.body.coupon

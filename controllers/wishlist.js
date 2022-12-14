@@ -38,18 +38,21 @@ module.exports = {
   renderPage:async(req,res)=>{
     let user=req.session.user;
     let userDetails=await User.findOne({_id:mongoose.Types.ObjectId(user._id)})
+    const wishLength=req.session.wishLength
+    const cartLength=req.session.cartLength
    
     if(userDetails.wishlist==null){
-    res.render('user/wishlist',{user,products:false})
+    res.render('user/wishlist',{user,products:false,wishLength,cartLength})
     }else{
-       let wishlength=userDetails.wishlist.length
+      const wishLength=req.session.wishLength
+      const cartLength=req.session.cartLength
        let products=[]
        for(let i=0;i<userDetails.wishlist.length;i++){
 
         let product=await Product.findOne({_id:userDetails.wishlist[i]})
         products.push(product)
        }
-       res.render('user/wishlist',{user,products,wishlength})
+       res.render('user/wishlist',{user,products,wishLength,cartLength})
     }
     }
 };

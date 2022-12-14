@@ -17,24 +17,37 @@ module.exports = {
       const products = await Product.find().sort({title:-1});
       res.render("user/home", { user: false, products,banner });
     } else {
+      const userId=req.session.user._id
+        const userInfo=await User.findOne({_id:mongoose.Types.ObjectId(userId)})
+        const cart=await Cart.findOne({user:mongoose.Types.ObjectId(userId)})
+
+        let wishLength=userInfo.wishlist.length
+        let cartLength
+        if(cart){
+        cartLength=cart.products.length
+        }else{
+          cartLength=0
+        }
       const products = await Product.find().sort({title:-1});
       const banner=await Banner.find()
       let user = req.session.user;
       let wishlength=user.wishlist.length
-      res.render("user/home", { user, products,wishlength,banner });
+      res.render("user/home", { user, products,wishLength,cartLength ,banner });
     }
   },
 
   profilePage:async(req,res)=>{
     userId=req.session.user._id
     user=await User.findOne({_id:userId}) 
-    wishlength=user.wishlist.length
-    res.render('user/profile',{user,wishlength})
+    const wishLength=req.session.wishLength
+    const cartLength=req.session.cartLength
+    res.render('user/profile',{user,wishLength,cartLength})
   },
   address:(req,res)=>{
     user=req.session.user
-    wishlength=user.wishlist.length
-    res.render('user/address',{user,wishlength})
+    const wishLength=req.session.wishLength
+    const cartLength=req.session.cartLength
+    res.render('user/address',{user,wishLength,cartLength})
   },
   addAddress:async(req,res)=>{
     data=req.body
@@ -70,8 +83,9 @@ module.exports = {
     // await user.save();
     
     
-    wishlength=user.wishlist.length
-    res.render('user/editAddress',{user,wishlength,address})
+    const wishLength=req.session.wishLength
+    const cartLength=req.session.cartLength
+    res.render('user/editAddress',{user,address,wishLength,cartLength})
   },
   editAddress:async(req,res)=>{
     const addressId=req.query.id
@@ -182,9 +196,7 @@ module.exports = {
     }
   },
   otpverify: (req, res) => {
-    otp
-      .verfiySms(req.body.phone, req.body.otp)
-      .then(async (verification_check) => {
+    otp.verfiySms(req.body.phone, req.body.otp).then(async (verification_check) => {
         console.log(verification_check);
         console.log(req.body);
         const id = req.body.id;
@@ -275,8 +287,9 @@ module.exports = {
 
     res.redirect("/admin/users");
   },
-  addToCart: (req, res) => {
-    cartHelper.addToCart(req.query.id, req.session.user._id);
-    res.json(true);
+  addToCart: async(req, res) => {
+    let success = await cartHelper.addToCart(req.query.id, req.session.user._id);
+    console.log(success)
+    res.json(success);
   },
 };

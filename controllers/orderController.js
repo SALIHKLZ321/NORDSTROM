@@ -12,7 +12,8 @@ module.exports = {
     const userId = req.session.user._id;
     const user = await User.findOne({ _id: userId });
     const address = user.address;
-    const wishlength = user.wishlist.length;
+    const wishLength=req.session.wishLength
+    const cartLength=req.session.cartLength
     const cart = await Cart.findOne({ user: userId });
     var products = await Promise.all(
       cart.products.map(async (e) => {
@@ -23,13 +24,14 @@ module.exports = {
       })
     );
 
-    res.render("user/checkout", { user, address, wishlength, products });
+    res.render("user/checkout", { user, address, wishLength,cartLength, products });
   },
   orderSuccess : (req,res)=>{
     let user = req.session.user
-    let wishlength = user.wishlist.length;
+    const wishLength=req.session.wishLength
+    const cartLength=req.session.cartLength
     
-    res.render("user/order-success", { user, wishlength });
+    res.render("user/order-success", { user, wishLength,cartLength });
 
   },
   checkOut: async (req, res) => {
@@ -124,6 +126,8 @@ module.exports = {
   myOrderPage:async(req,res)=>{
     let user=req.session.user
     let userId=user._id
+    const wishLength=req.session.wishLength
+    const cartLength=req.session.cartLength
     await Order.deleteMany({status:'Pending'})
     let allOrders=await Order.find({user:mongoose.Types.ObjectId(userId)}).sort({'purchaseDate':-1})
     let orders=[]
@@ -134,13 +138,15 @@ module.exports = {
       }
     })
 
-    res.render('user/myOrder',{orders,user})
+    res.render('user/myOrder',{orders,user,wishLength,cartLength})
 
   },
   orderDetails:async(req,res)=>{
     let user=req.session.user
     let orderId=req.query.id
     let order=await Order.findOne({_id:orderId})
+    const wishLength=req.session.wishLength
+    const cartLength=req.session.cartLength
     
     let orderItems=await Order.aggregate([
       {
@@ -168,7 +174,7 @@ module.exports = {
         }
       }
     ])
-    res.render('user/orderDetails',{user,order,orderItems})
+    res.render('user/orderDetails',{user,order,orderItems,wishLength,cartLength})
   },
   cancelOrder:async(req,res)=>{
     const orderId=req.query.id

@@ -3,9 +3,9 @@
 
 <section class="h-100 gradient-custom">
     <div class="container  h-100" >
-      <div class="row d-flex  h-100">
+      <div class="row d-flex  h-100 justify-content-center align-items-center">
         
-        <div class="col-lg-10 col-xl-8">
+        <div class="col-lg-10 col-xl-8 ">
           <div class="card">
             <div class="card-header px-4 py-5">
               <h5 class="text-muted mb-0">Thanks for your Order, <span style="color: #a8729a;"><%= user.name %> </span>!</h5>
@@ -67,25 +67,42 @@
                 <p class="fw-bold mb-0">Order Details</p>
                 <p class="text-muted mb-0"><span class="fw-bold me-4">Total</span> <%= order.total %>  </p>
               </div>
-  
-              <!-- <div class="d-flex justify-content-between pt-2">
-                <p class="text-muted mb-0">Invoice Number : 788152</p>
-                <p class="text-muted mb-0"><span class="fw-bold me-4">Discount</span> $19.00</p>
-              </div> -->
               <% let date=order.purchaseDate.toString() %>
               <div class="d-flex justify-content-between">
                 <p class="text-muted mb-0">Ordered Date : <%= date.slice(0,16) %> </p>
                 
               </div>
   
-              <!-- <div class="d-flex justify-content-between mb-5">
-                <p class="text-muted mb-0">Recepits Voucher : 18KU-62IIK</p>
-                <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
-              </div> -->
+              
             </div>
+            
             <div class="card-footer border-0 px-4 py-5">
-              <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
-                paid: <span class="h2 mb-0 ms-2">₹ <%= order.total %></span></h5>
+              <div class="ec-trackorder-bottom">
+              <div class="ec-progress-track">
+                <ul id="ec-progressbar">
+                    <li class="step0 <%= order.status=='Placed'?'active':'' %><%= order.status=='Shipped'?'active':'' %><%= order.status=='Designing'?'active':'' %><%= order.status=='Out for delivery'?'active':'' %><%= order.status=='Delivered'?'active':'' %>"><span class="ec-track-icon"> <img
+                                src="assets/images/icons/track_1.png" alt="track_order"></span><span
+                            class="ec-progressbar-track"></span><span class="ec-track-title">order
+                            <br>placed</span></li>
+                    <li class="step0 <%= order.status=='Designing'?'active':'' %><%= order.status=='Shipped'?'active':'' %><%= order.status=='Out for delivery'?'active':'' %><%= order.status=='Delivered'?'active':'' %>"><span class="ec-track-icon"> <img
+                                src="assets/images/icons/track_2.png" alt="track_order"></span><span
+                            class="ec-progressbar-track"></span><span class="ec-track-title">order
+                                <br>designing</span></li>
+                    <li class="step0 <%= order.status=='Shipped'?'active':'' %><%= order.status=='Out for delivery'?'active':'' %><%= order.status=='Delivered'?'active':'' %>"><span class="ec-track-icon"> <img
+                                src="assets/images/icons/track_3.png" alt="track_order"></span><span
+                            class="ec-progressbar-track"></span><span class="ec-track-title">order
+                                <br>shipped</span></li>
+                    <li class="step0 <%= order.status=='Out for delivery'?'active':'' %><%= order.status=='Delivered'?'active':'' %>"><span class="ec-track-icon"> <img
+                                src="assets/images/icons/track_4.png" alt="track_order"></span><span
+                            class="ec-progressbar-track"></span><span class="ec-track-title">order <br>Out for delivery</span></li>
+                    <li class="step0 <%= order.status==='Delivered'?'active':'' %>"><span class="ec-track-icon"> <img
+                                src="assets/images/icons/track_5.png" alt="track_order"></span><span
+                            class="ec-progressbar-track"></span><span class="ec-track-title">order
+                                <br>arrived</span></li>
+
+                </ul>
+            </div>
+          </div>
             </div>
           </div>
         </div>

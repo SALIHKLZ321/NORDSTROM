@@ -134,14 +134,14 @@
                                 <a href="/wishlist" class="ec-header-btn ec-header-wishlist">
                                     <div class="header-icon"><img src="assets/images/icons/wishlist.svg"
                                             class="svg_img header_svg" alt="" /></div>
-                                    <span id="wishlist1" class="ec-header-count"> </span>
+                                    <span id="wishCount" class="ec-header-count"><%= wishLength?wishLength: '0' %></span>
                                 </a>
                                 <!-- Header wishlist End -->
                                 <!-- Header Cart Start -->
                                 <a href="/cart" class="ec-header-btn">
                                     <div class="header-icon"><img src="assets/images/icons/cart.svg"
                                             class="svg_img header_svg" alt="" /></div>
-                                    <span class="ec-header-count cart-count-lable" id="cartCount"></span>
+                                    <span class="ec-header-count cart-count-lable" id="cartCount"><%= cartLength?cartLength: '0' %></span>
                                 </a>
                                 <% } %>
                                 <!-- Header Cart End -->

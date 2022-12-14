@@ -35,7 +35,7 @@
         <div class="ec-cart-content">
           <div class="ec-cart-inner">
             <div class="row">
-              <form action="#">
+              
                 <div class="table-content cart-table-content">
                   <% if (products) { %>
                   <table>
@@ -108,7 +108,7 @@
                     </div>
                   </div>
                 </div>
-              </form>
+              
             </div>
           </div>
         </div>
@@ -244,7 +244,7 @@
     });
   }
   function qtyDec(id, price) {
-    if ($(`#quanty${id}`).html() <= 1) {
+    if ($(`#quanty${id}`).html() <2 ) {
       removeFromCart(id);
     } else {
       $.ajax({

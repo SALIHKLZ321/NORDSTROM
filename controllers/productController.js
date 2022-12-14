@@ -3,6 +3,9 @@ const sharp = require("sharp");
 const path = require("path");
 const Product = require("../models/productModel");
 const Category = require("../models/category");
+const User=require('../models/userModel')
+const mongoose=require('mongoose')
+const Cart=require('../models/cartModel')
 
 ////////////////////////////////////////////////////////////////////////
 

@@ -67,7 +67,6 @@ module.exports = {
   saveNewPass:async(req,res)=>{
     const newPass=req.body.password
     let id=mongoose.Types.ObjectId((req.body.id).trim())
-    console.log(newPass,id);
     bcrypt.genSalt(10, (err, salt) =>{
             bcrypt.hash(newPass, salt, async(err, hash) => {
               if (err) res.render('user/404');

@@ -16,6 +16,7 @@ router.get('/',userController.renderHome)
 router.get('/login',userController.login)
 router.get('/signup',userController.signup)
 router.get('/logout',userController.logout)
+router.get('/forget-password',userController.resetPasswordRender)
 
 router.get('/shop',productController.shopPage)
 
@@ -41,7 +42,7 @@ router.get('/quickview',productController.quickView)
 router.get('/coupons',auth.isUser,cartWishlist.counts,couponController.userCoupons)
 
 router.get('/test',(req,res)=>{
-    res.render('user/shop',{user:false})
+    res.render('user/passwordReset',{user:false})
 })
 
 
@@ -54,6 +55,9 @@ router.get('/cancel-order',auth.isUser,orderController.cancelOrder)
 router.post('/signup',userController.registerUser)
 router.post('/otpverify',userController.otpverify)
 router.post('/login',userController.doLogin)
+router.post('/forgetPassword',userController.forgetPassword)
+router.post('/resetPasswordOtpCheck',userController.resetPasswordOtpVerify)
+router.post('/newPassword',userController.saveNewPass)
 router.post('/add-address',auth.isUser,userController.addAddress)
 router.post('/edit-address',auth.isUser,userController.editAddress)
 router.post('/checkout',auth.isUser,orderController.checkOut)

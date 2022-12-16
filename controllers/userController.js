@@ -34,6 +34,59 @@ module.exports = {
       res.render("user/home", { user, products,wishLength,cartLength ,banner });
     }
   },
+  resetPasswordRender:(req,res)=>{
+    res.render('user/forgetPassword',{user:false})
+  },
+  forgetPassword:async(req,res)=>{
+    const enteredEmail=req.body.email
+    const userExist=await User.findOne({email:enteredEmail})
+    if(userExist==null){
+      res.locals.message='User doesnot exist'
+      res.render('user/forgetPassword',{user:false})
+    }else{
+      const phone=userExist.phone
+      otp.sendSms(phone);
+      res.render("user/resetPassOtp", { user:false, userExist});
+    }
+  },
+  resetPasswordOtpVerify:async(req,res)=>{
+    
+    otp.verfiySms(req.body.phone, req.body.otp).then(async (verification_check) => {
+      
+      const id = req.body.id;
+      if (verification_check.status == "approved") {
+        res.render('user/passwordReset',{user:false,id})
+      } else {
+        
+        res.locals.message = "OTP verification failed";
+
+        res.render("user/forgetPassword", { user: false });
+      }
+    });
+  },
+  saveNewPass:async(req,res)=>{
+    const newPass=req.body.password
+    let id=mongoose.Types.ObjectId((req.body.id).trim())
+    console.log(newPass,id);
+    bcrypt.genSalt(10, (err, salt) =>{
+            bcrypt.hash(newPass, salt, async(err, hash) => {
+              if (err) res.render('user/404');
+              console.log(hash);
+              await User.updateOne({_id:mongoose.Types.ObjectId(id)},{
+                $set:{
+                  password:hash
+                }
+              }).then(()=>{
+                res.redirect('/login')
+              }).catch((err)=>{
+                console.log(err);
+                res.render('user/404')
+              })
+
+              
+            })
+          })
+  },
 
   profilePage:async(req,res)=>{
     userId=req.session.user._id

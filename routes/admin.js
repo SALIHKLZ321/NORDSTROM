@@ -36,6 +36,7 @@ router.get('/order-list',auth.isAdmin,orderController.listAllOrders)
 
 router.get('/coupons',auth.isAdmin,couponController.listCoupons)
 router.get('/add-coupon',auth.isAdmin,couponController.addCouponRender)
+router.get('/delete-coupon',auth.isAdmin,couponController.deleteCoupon)
 
 router.post('/addproduct',productHelper.uploadProductPic,productHelper.resizeProductPic,productHelper.addProduct)
 router.post('/editproduct',productHelper.uploadProductPic,productHelper.resizeProductPic,productHelper.editProduct)

@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const Coupon=require('../models/couponModel')
 
 
@@ -40,5 +41,10 @@ module.exports={
     listCoupons:async(req,res)=>{
         const coupons=await Coupon.find()
         res.render('admin/coupons',{coupons})
+    },
+    deleteCoupon:async(req,res)=>{
+        const id=(req.query.id).trim()
+        await Coupon.deleteOne({_id:mongoose.Types.ObjectId(id)})
+        res.redirect('/admin/coupons')
     }
 }

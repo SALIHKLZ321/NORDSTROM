@@ -85,6 +85,7 @@ module.exports = {
     }
   },
   incrementQuantity: async (req, res) => {
+    
     productId = req.query.id;
     userId = req.session.user._id;
     let prod = await Product.findOne({
@@ -106,6 +107,7 @@ module.exports = {
       }
     );
     res.json(true);
+    
   },
   decrementQuantity: async (req, res) => {
     productId = req.query.id;

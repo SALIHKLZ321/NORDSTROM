@@ -142,6 +142,7 @@ module.exports = {
 
   },
   orderDetails:async(req,res)=>{
+    try{
     let user=req.session.user
     let orderId=req.query.id
     let order=await Order.findOne({_id:orderId})
@@ -175,6 +176,10 @@ module.exports = {
       }
     ])
     res.render('user/orderDetails',{user,order,orderItems,wishLength,cartLength})
+  }catch (err){
+    console.log(err);
+    res.render('user/404')
+  }
   },
   cancelOrder:async(req,res)=>{
     const orderId=req.query.id

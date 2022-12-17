@@ -339,8 +339,12 @@ module.exports = {
     res.redirect("/admin/users");
   },
   addToCart: async(req, res) => {
+    if(!req.session.user){
+      return res.json({status : true})
+    }else{
     let success = await cartHelper.addToCart(req.query.id, req.session.user._id);
     console.log(success)
-    res.json(success);
+    res.json({success : success});
+    }
   },
 };

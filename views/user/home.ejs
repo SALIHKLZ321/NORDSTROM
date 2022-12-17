@@ -695,7 +695,11 @@
                     url: '/add-to-cart?id=' + prodId,
                     method: 'get',
                     success: ((response) => {
-                        if(response==false){
+                        console.log(response)
+                        if(response.status){
+                            location.href ='/login'
+                        }
+                        else if(response.success==false){
                             Swal.fire({
                             position: 'top-end',
                             icon: 'error',
@@ -714,7 +718,7 @@
                         let count = $('#cartCount').html()
                         count = parseInt(count) + 1
                         $('#cartCount').html(count)
-                    }else{
+                        }else{
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -723,7 +727,7 @@
                             timer: 1500
                         })
 
-                    }
+                        }
                     })
                 })
             }

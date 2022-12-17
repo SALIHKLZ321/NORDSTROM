@@ -25,7 +25,7 @@ router.get('/add-address',auth.isUser,cartWishlist.counts,userController.address
 router.get('/delete-address',auth.isUser,cartWishlist.counts,userController.deleteAddress)
 router.get('/edit-address',auth.isUser,cartWishlist.counts,userController.renderEditAddress)
 
-router.get('/add-to-cart',auth.isUser,cartWishlist.counts,userController.addToCart)
+router.get('/add-to-cart',userController.addToCart)
 router.get('/cart',auth.isUser,cartWishlist.counts,cartHelper.cartPage)
 router.get('/inc-quantity',cartHelper.incrementQuantity)
 router.get('/dec-quantity',cartHelper.decrementQuantity)

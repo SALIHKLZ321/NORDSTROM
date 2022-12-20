@@ -60,14 +60,11 @@
                 <div >
                     
                 <!-- Shop content Start -->
-                <% let length=products.length %> 
-                <% let i=0;let j=((i+8)>length?length:i+8) %> 
-                
-                <% let Products=products.slice(i,j)%> 
+                 
                 <div class="shop-pro-content">
                     <div class="shop-pro-inner">
                         <div id="prodRow"  class="row">
-                            <% Products.forEach(e=> { %>
+                            <% products.forEach(e=> { %>
 
 
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6  ec-product-content"
@@ -156,12 +153,10 @@
                     
                     <!-- Ec Pagination Start -->
                     <!-- <div class="ec-pro-pagination">
-                        <span>Showing 1-8 of <%=length%> item(s)</span>
+                        
                         <ul class="ec-pro-pagination-inner">
                             
-                             <% for( let l = 0; l*8<length  ; l++ ) { %>
-                                <li><a  href=""><%= l+1 %></a></li>
-                             <% } %>
+                             
                             <li><a class="next" href="#">Next <i class="ecicon eci-angle-right"></i></a></li>
                         </ul>
                     </div> -->
